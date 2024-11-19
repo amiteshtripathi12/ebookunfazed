@@ -40,6 +40,7 @@ import {useRouter} from "next/navigation";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Link from "next/link";
+import axios from "axios";
 
 const FormSchema = z.object({
   dob: z.date({
@@ -186,114 +187,17 @@ function HeroSection() {
     };
   }, [isOpen]);
 
-  const loadScript = (src: string): Promise<boolean> => {
-    return new Promise((resolve) => {
-      const script = document.createElement("script");
-      script.src = src;
-      script.onload = () => {
-        resolve(true);
-      };
-      script.onerror = () => {
-        resolve(false);
-      };
-      document.body.appendChild(script);
-    });
-  };
-
-  const handlePayment = async () => {
-    setIsDialogOpen(false);
-    try {
-      // Prepare form data for API call
-      const formData = new FormData();
-      formData.append("amount", "50000"); // Amount in paise (50000 = ₹500)
-      formData.append("currency", "INR");
-      formData.append("contact_id", userDetails?.id);
-
-      // Create Razorpay order by calling your API
-      const response = await fetch(
-        "https://landing.unfazed.co.in/api/create-payment/",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      const data = await response.json();
-      if (!data) {
-        console.error("Failed to create order");
-        return;
-      }
-
-      // Load the Razorpay script
-      const res = await loadScript(
-        "https://checkout.razorpay.com/v1/checkout.js"
-      );
-
-      if (!res) {
-        alert("Failed to load Razorpay checkout script.");
-        return;
-      }
-
-      // Razorpay payment options
-      const options: any = {
-        key: "rzp_test_7GPcqJ45CdVJHP", // Replace with your Razorpay key
-        amount: data.amount, // Amount in paise
-        currency: data.currency,
-        name: "Unfazed",
-        description: "Test Transaction",
-        order_id: data.id, // Razorpay order ID returned from backend
-        handler: (response: RazorpayResponse) => {
-          // This function triggers on payment success
-          if (response.razorpay_payment_id) {
-            // If payment was successful
-            router.push("/register-success");
-          } else {
-            // If payment failed
-            toast({
-              variant: "destructive",
-              title: "Uh oh! Something went wrong.",
-              description: "Payment failed. Please try again.",
-            });
-            // alert("Payment failed. Please try again.");
-          }
-        },
-        prefill: {
-          name: `${userDetails?.firstName || "John"} ${
-            userDetails?.lastName || "Doe"
-          }`,
-          email: userDetails?.email || "john.doe@example.com",
-          contact: userDetails?.phoneNumber || "9999999999",
-        },
-        theme: {
-          color: "#3399cc",
-        },
-      };
-
-      // Open Razorpay payment window
-      const rzp1 = new (window as any).Razorpay(options);
-      rzp1.open();
-    } catch (error) {
-      console.error("Error in processing payment:", error);
-
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description:
-          "An error occurred while processing the payment. Please try again.",
-      });
-    }
-  };
-
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log({data});
+
     if (data.phoneNumber?.startsWith("91")) {
       setCountryph("ind");
     }
+
     try {
       const formData = new FormData();
       Object.entries(data).forEach(([key, value]) => {
         if (value !== undefined && value !== null) {
-          // Check if the value is a Date object or a valid date string
           if (key === "dob" && value instanceof Date) {
             // Format the date as dd/mm/yyyy
             const formattedDOB = `${value
@@ -309,23 +213,21 @@ function HeroSection() {
         }
       });
 
-      const response = await fetch(
+      const response = await axios.post(
         "https://unfazed.medicslifecare.com/api/contact/",
+        formData,
         {
-          method: "POST",
-          body: formData,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const result = await response.json();
-      setUserDetails(result);
+      setUserDetails(response.data);
       setShowType("question");
 
-      console.log("Form submitted successfully:", result);
+      console.log("Form submitted successfully:", response.data);
     } catch (error) {
       toast({
         variant: "destructive",
