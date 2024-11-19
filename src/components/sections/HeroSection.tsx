@@ -310,7 +310,7 @@ function HeroSection() {
       });
 
       const response = await fetch(
-        "https://landing.unfazed.co.in/api/contact/",
+        "https://unfazed.medicslifecare.com/api/contact/",
         {
           method: "POST",
           body: formData,
