@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Button} from "@/components/ui/button";
 import {
   Dialog,
@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {format} from "date-fns";
-import {CalendarIcon, PhoneCall} from "lucide-react";
+import {CalendarIcon, CheckCircle, Clock, Copy, PhoneCall} from "lucide-react";
 import {useForm} from "react-hook-form";
 import {z} from "zod";
 import {cn} from "@/lib/utils";
@@ -30,7 +30,7 @@ import {
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
-
+import {Alert, AlertDescription} from "@/components/ui/alert";
 import MainButton from "../common/MainButton";
 import {DialogClose} from "@radix-ui/react-dialog";
 import {Textarea} from "../ui/textarea";
@@ -80,6 +80,31 @@ function HeroSection() {
   const {toast} = useToast();
   const router = useRouter();
 
+  const [answers, setAnswers] = useState<boolean[]>([]);
+  const [showCoupon, setShowCoupon] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(360); // 6 minutes in seconds
+  const [copied, setCopied] = useState(false);
+  const [coupon, setCoupon] = useState("");
+  const [isApplied, setIsApplied] = useState(false);
+  const couponRef = useRef<HTMLDivElement | null>(null);
+  const [couponInput, setCouponInput] = useState("");
+  const [invalidCoupon, setInvalidCoupon] = useState(false);
+
+  const [coupons, setCoupons] = useState<{code: string; expiresAt: number}[]>(
+    []
+  );
+
+  const questions = [
+    "Do you mindlessly scroll social media at night after work?",
+    "Do you feel exhausted often after you finish a task?",
+    "Are you social at work but ignore every text once you get home?",
+    "Do you tend to overthink different scenarios in your head?",
+    "Do you tend to stay back at home and never want to leave?",
+    "Are you willing to get over these things?",
+    "Are you willing to do whatever it takes to heal?",
+    'Are you ready to get your hands on my life\'s work, made specially to help you break free from this "functional freeze" state?',
+  ];
+
   interface RazorpayResponse {
     razorpay_payment_id: string;
     razorpay_order_id: string;
@@ -90,7 +115,66 @@ function HeroSection() {
     success: boolean;
   }
 
-  // Prevent body scroll when dialog is open
+  const generateCoupon = () => {
+    const randomCode = `HEAL${Math.floor(100 + Math.random() * 900)}`;
+    const expiresAt = Date.now() + 360000; // Expires in 6 minutes
+    setCoupons([...coupons, {code: randomCode, expiresAt}]);
+    return randomCode;
+  };
+
+  useEffect(() => {
+    if (showCoupon && timeLeft > 0) {
+      const timer = setInterval(() => {
+        setTimeLeft((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [showCoupon, timeLeft]);
+
+  const handleAnswer = (index: number, value: boolean) => {
+    setAnswers((prevAnswers) => {
+      const newAnswers = [...prevAnswers];
+      newAnswers[index] = value;
+      return newAnswers;
+    });
+    if (Object.keys({...answers, [index]: value}).length === questions.length) {
+      setShowCoupon(true);
+      const newCoupon = generateCoupon();
+    }
+  };
+
+  useEffect(() => {
+    if (showCoupon && couponRef.current) {
+      couponRef.current.scrollIntoView({behavior: "smooth", block: "start"});
+    }
+  }, [showCoupon]);
+
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+  };
+
+  const copyToClipboard = () => {
+    const currentCoupon = coupons[coupons.length - 1]?.code;
+    if (currentCoupon) {
+      navigator.clipboard.writeText(currentCoupon);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const handleApplyCoupon = () => {
+    const validCoupon = coupons.find(
+      (c) => c.code === couponInput && c.expiresAt > Date.now()
+    );
+    if (validCoupon) {
+      setIsApplied(true);
+    } else {
+      setInvalidCoupon(true);
+    }
+  };
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -105,7 +189,6 @@ function HeroSection() {
   const loadScript = (src: string): Promise<boolean> => {
     return new Promise((resolve) => {
       const script = document.createElement("script");
-
       script.src = src;
       script.onload = () => {
         resolve(true);
@@ -113,7 +196,6 @@ function HeroSection() {
       script.onerror = () => {
         resolve(false);
       };
-
       document.body.appendChild(script);
     });
   };
@@ -241,7 +323,7 @@ function HeroSection() {
 
       const result = await response.json();
       setUserDetails(result);
-      setShowType("pay");
+      setShowType("question");
 
       console.log("Form submitted successfully:", result);
     } catch (error) {
@@ -363,13 +445,13 @@ function HeroSection() {
                               <FormControl>
                                 <PhoneInput
                                   {...field}
-                                  country="us" // Default country (can change to any country code, e.g., "us", "ca", "gb")
+                                  country="us"
                                   placeholder="Enter your phone number"
                                   value={field.value}
                                   onChange={field.onChange}
-                                  inputClass="w-full py-2 px-3 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" // Tailwind classes for styling the input
-                                  buttonClass="bg-gray-200 border-r-2 border-gray-300 rounded-l-md" // Style the flag button
-                                  dropdownClass="bg-white border border-gray-300 shadow-lg rounded-md" // Style the dropdown (country selection)
+                                  inputClass="w-full py-2 px-3 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                  buttonClass="bg-gray-200 border-r-2 border-gray-300 rounded-l-md"
+                                  dropdownClass="bg-white border border-gray-300 shadow-lg rounded-md"
                                   specialLabel="Phone"
                                 />
                               </FormControl>
@@ -474,93 +556,188 @@ function HeroSection() {
                     <div></div>
                   </form>
                 </Form>
+              ) : showType === "question" ? (
+                <div className="flex flex-col items-center justify-center mt-6 max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto">
+                  <div className="w-full space-y-4 max-h-[75vh] overflow-y-auto custom-scrollbar">
+                    {questions.map((question, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center justify-between gap-4 p-2 hover:bg-gray-50 rounded-lg"
+                      >
+                        <p className="font-medium text-sm sm:text-base flex-1">
+                          {question}
+                        </p>
+                        <div className="flex gap-2 shrink-0">
+                          <Button
+                            variant={
+                              answers[index] === true ? "default" : "outline"
+                            }
+                            onClick={() => handleAnswer(index, true)}
+                            className="w-16 h-8 text-sm"
+                            size="sm"
+                          >
+                            Yes
+                          </Button>
+                          <Button
+                            variant={
+                              answers[index] === false ? "default" : "outline"
+                            }
+                            onClick={() => handleAnswer(index, false)}
+                            className="w-16 h-8 text-sm"
+                            size="sm"
+                          >
+                            No
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+
+                    {showCoupon && (
+                      <div
+                        ref={couponRef}
+                        className="mt-8 p-6 bg-gray-50 rounded-lg space-y-4"
+                      >
+                        <div className="flex items-center justify-between">
+                          <h3 className="text-xl font-bold text-primary">
+                            Special Offer!
+                          </h3>
+                          <div className="flex items-center gap-2">
+                            <Clock className="w-4 h-4" />
+                            <span className="font-mono">
+                              {formatTime(timeLeft)}
+                            </span>
+                          </div>
+                        </div>
+
+                        <Alert>
+                          <AlertDescription className="font-medium">
+                            HERE'S A COUPON CODE, MADE SPECIALLY FOR YOU! PASTE
+                            IT IN THE COUPON BOX IN THE NEXT PAGE, AND JUST SEE
+                            THE MAGIC UNFOLD!
+                          </AlertDescription>
+                        </Alert>
+
+                        <div className="flex gap-2">
+                          <Input
+                            value={coupons[coupons.length - 1]?.code || ""}
+                            readOnly
+                            className="font-mono text-lg"
+                          />
+                          <Button
+                            onClick={copyToClipboard}
+                            variant="outline"
+                            className="w-24"
+                          >
+                            {copied ? (
+                              <CheckCircle className="w-4 h-4" />
+                            ) : (
+                              <Copy className="w-4 h-4" />
+                            )}
+                          </Button>
+                        </div>
+
+                        <p className="text-sm text-gray-500">
+                          P.S. THIS COUPON IS JUST VALID FOR THE NEXT 6 MINUTES!
+                          SO, HURRY!
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
               ) : (
-                <>
-                  <div className="flex flex-col items-center justify-center p-8 mt-6 bg-white rounded-lg shadow-lg max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto">
-                    <img
-                      src="/images/enrollment.png"
-                      alt="Planeeet Logo"
-                      className="w-16 h-16 mb-4"
-                    />
+                <div className="flex flex-col items-center justify-center p-8 mt-6 bg-white rounded-lg shadow-lg max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto">
+                  <img
+                    src="/images/enrollment.png"
+                    alt="Planeeet Logo"
+                    className="w-16 h-16 mb-4"
+                  />
 
-                    <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold">
-                      Registered
-                    </h1>
-                    {/* <p className="text-gray-500 mt-2 flex text-center">
-                      Our team will contact you soon...
-                      <PhoneCall color="#ff6600" className="ml-1" />
+                  <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold">
+                    Get Your eBook Now!
+                  </h1>
+
+                  <div className="w-[80%] max-w-md mt-6">
+                    <div className="flex gap-2 mb-2">
+                      <Input
+                        placeholder="Enter coupon code"
+                        value={couponInput}
+                        onChange={(e) => setCouponInput(e.target.value)}
+                      />
+                      <Button
+                        onClick={handleApplyCoupon}
+                        disabled={couponInput?.length < 0}
+                        variant="outline"
+                        className="w-24"
+                      >
+                        Apply
+                      </Button>
+                    </div>
+                    {isApplied &&
+                      (invalidCoupon ? (
+                        <span className="ml-2 text-red-600">
+                          Invalid Coupon or Coupon Expired!
+                        </span>
+                      ) : (
+                        <span className="ml-2 text-green-600">
+                          Coupon applied successfully!
+                        </span>
+                      ))}
+                  </div>
+
+                  <div className="pt-4 px-6 text-center bg-gray-50 dark:bg-gray-900 lg:flex-shrink-0 lg:flex lg:flex-col lg:justify-center">
+                    {/* <p className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
+                      Limited Time Offer, First 500 readers only
                     </p> */}
-
-                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mt-4">
-                      Pay Now, Get Your eBook!
-                    </h2>
-                    {/* <p className="text-center text-gray-500 mt-2 text-sm sm:text-base lg:text-lg">
-                      This feature is available for paid users only. Please, pay
-                      now or book your seat to get full access to all our
-                      course. Don’t miss out!
-                    </p> */}
-
-                    <div className="pt-4 px-6 text-center bg-gray-50 dark:bg-gray-900 lg:flex-shrink-0 lg:flex lg:flex-col lg:justify-center">
-                      <p className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
-                        Limited Time Offer, First 500 readers only
-                      </p>
-                      {countryph === "ind" ? (
-                        <>
-                          {" "}
+                    {countryph === "ind" ? (
+                      <>
+                        {isApplied && (
                           <div className="">
-                            <span
-                              // style="opacity:0.5"
-                              className="font-mono text-xl md:text-lg font-medium text-gray-400 dark:text-gray-400"
-                            >
+                            <span className="font-mono text-xl md:text-lg font-medium text-gray-400 dark:text-gray-400">
                               ₹
                             </span>
-                            <span
-                              // style="opacity:0.5"
-                              className="h1 line-through text-gray-600 dark:text-gray-400"
-                            >
+                            <span className="h1 line-through text-gray-600 dark:text-gray-400">
                               2500
-                            </span>{" "}
-                            <span className="text-red-600 text-sm">
+                            </span>
+                            <span className="text-red-600 text-sm ml-2">
                               Special promotion
                             </span>
                           </div>
-                          <div className="mt-4 flex items-center justify-center text-5xl font-extrabold text-gray-900 dark:text-white">
-                            <span>₹499</span>
-                            <span className="ml-3 text-xl font-medium text-gray-500 dark:text-gray-400">
-                              INR
-                            </span>
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          {" "}
+                        )}
+
+                        <div className="mt-4 flex items-center justify-center text-5xl font-extrabold text-gray-900 dark:text-white">
+                          <span>₹{isApplied ? "499" : "2500"}</span>
+                          <span className="ml-3 text-xl font-medium text-gray-500 dark:text-gray-400">
+                            INR
+                          </span>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        {isApplied && (
                           <div className="">
-                            <span
-                              // style="opacity:0.5"
-                              className="font-mono text-xl md:text-lg font-medium text-gray-400 dark:text-gray-400"
-                            >
+                            <span className="font-mono text-xl md:text-lg font-medium text-gray-400 dark:text-gray-400">
                               $
                             </span>
-                            <span
-                              // style="opacity:0.5"
-                              className="h1 line-through text-gray-600 dark:text-gray-400"
-                            >
-                              129
-                            </span>{" "}
-                            <span className="text-red-600 text-sm">
+                            <span className="h1 line-through text-gray-600 dark:text-gray-400">
+                              99
+                            </span>
+                            <span className="text-red-600 text-sm ml-2">
                               Special promotion
                             </span>
                           </div>
-                          <div className="mt-4 flex items-center justify-center text-5xl font-extrabold text-gray-900 dark:text-white">
-                            <span>$39.99</span>
-                            <span className="ml-3 text-xl font-medium text-gray-500 dark:text-gray-400">
-                              USD
-                            </span>
-                          </div>
-                        </>
-                      )}
-                    </div>
+                        )}
 
+                        <div className="mt-4 flex items-center justify-center text-5xl font-extrabold text-gray-900 dark:text-white">
+                          <span>${isApplied ? "34.99" : "99"}</span>
+                          <span className="ml-3 text-xl font-medium text-gray-500 dark:text-gray-400">
+                            USD
+                          </span>
+                        </div>
+                      </>
+                    )}
+                  </div>
+
+                  {isApplied ? (
                     <Link
                       href={
                         countryph === "ind"
@@ -571,19 +748,36 @@ function HeroSection() {
                     >
                       PAY NOW
                     </Link>
-                  </div>
-                </>
+                  ) : (
+                    <button
+                      disabled
+                      className="mt-6 bg-gray-400 text-white py-2 px-6 rounded-full text-sm sm:text-base lg:text-lg cursor-not-allowed"
+                    >
+                      PAY NOW
+                    </button>
+                  )}
+                </div>
               )}
               <DialogFooter>
-                {showType === "form" && (
+                {showType === "form" ? (
                   <Button
                     type="submit"
                     form="myForm"
-                    className="bg-primary w-[8.125rem] hover:opacity-90  hover:bg-secondary text-white shadow-none"
+                    className="bg-primary w-[8.125rem] hover:opacity-90 hover:bg-secondary text-white shadow-none"
                   >
                     Book Now
                   </Button>
-                )}
+                ) : showType === "question" ? (
+                  <Button
+                    onClick={() => {
+                      setShowType("pay");
+                    }}
+                    disabled={!showCoupon}
+                    className="bg-primary w-[8.125rem] hover:opacity-90 hover:bg-secondary text-white shadow-none"
+                  >
+                    Next
+                  </Button>
+                ) : null}
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -598,7 +792,7 @@ function HeroSection() {
 
               <DialogContent
                 className="w-[95vw] h-[90vh] bg-black/95 sm:max-w-[800px] "
-                onInteractOutside={(e) => e.preventDefault()} // Prevent unwanted closes on mobile
+                onInteractOutside={(e) => e.preventDefault()}
               >
                 <DialogClose className="absolute right-4 top-4 rounded-sm bg-gray-500 text-white hover:bg-gray-600 p-2 transition-opacity opacity-70 hover:opacity-100"></DialogClose>
 
