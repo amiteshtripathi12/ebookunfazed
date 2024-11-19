@@ -696,7 +696,7 @@ function HeroSection() {
                               ₹
                             </span>
                             <span className="h1 line-through text-gray-600 dark:text-gray-400">
-                              2500
+                              2499
                             </span>
                             <span className="text-red-600 text-sm ml-2">
                               Special promotion
@@ -705,7 +705,7 @@ function HeroSection() {
                         )}
 
                         <div className="mt-4 flex items-center justify-center text-5xl font-extrabold text-gray-900 dark:text-white">
-                          <span>₹{isApplied ? "499" : "2500"}</span>
+                          <span>₹{isApplied ? "499" : "2499"}</span>
                           <span className="ml-3 text-xl font-medium text-gray-500 dark:text-gray-400">
                             INR
                           </span>
@@ -728,7 +728,7 @@ function HeroSection() {
                         )}
 
                         <div className="mt-4 flex items-center justify-center text-5xl font-extrabold text-gray-900 dark:text-white">
-                          <span>${isApplied ? "34.99" : "99"}</span>
+                          <span>${isApplied ? "39.99" : "99"}</span>
                           <span className="ml-3 text-xl font-medium text-gray-500 dark:text-gray-400">
                             USD
                           </span>
