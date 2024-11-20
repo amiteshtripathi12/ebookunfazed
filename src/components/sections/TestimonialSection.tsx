@@ -14,7 +14,7 @@ function TestimonialSection() {
     },
     {
       id: 1,
-      imageUrl: "/images/kayley.jpg",
+      imageUrl: "/images/gene.jpg",
       reviewerName: "Kayley F",
       review:
         "Filled with helpful insights and real-life examples, this book provides powerful strategies for overcoming feelings of being ‘stuck’ and reconnecting with oneself.",
@@ -28,119 +28,119 @@ function TestimonialSection() {
     },
     {
       id: 3,
-      imageUrl: "/images/alan.jpg",
+      imageUrl: "/images/rayhan.jpg",
       reviewerName: "Allan K",
       review:
         "Practical and accessible, this book demystifies the freeze response and gives me the confidence to apply these techniques in my own healing journey.",
     },
     {
       id: 4,
-      imageUrl: "/images/rayhan.jpg",
+      imageUrl: "/images/gene.jpg",
       reviewerName: "Sneha S",
       review:
         "An insightful read! The techniques explained here have helped me feel more connected with my body and emotions.",
     },
     {
       id: 5,
-      imageUrl: "/images/kayley.jpg",
+      imageUrl: "/images/rayhan.jpg",
       reviewerName: "John D",
       review:
         "The exercises are practical and easy to incorporate into daily life. A valuable resource for personal growth!",
     },
     {
       id: 6,
-      imageUrl: "/images/gene.jpg",
+      imageUrl: "/images/rayhan.jpg",
       reviewerName: "Rohit R",
       review:
         "This book's approach to addressing the freeze response is unique and highly effective.",
     },
     {
       id: 7,
-      imageUrl: "/images/alan.jpg",
+      imageUrl: "/images/gene.jpg",
       reviewerName: "Sophia L",
       review:
         "Engaging and informative, this book has been a valuable tool in my personal journey.",
     },
     {
       id: 8,
-      imageUrl: "/images/rayhan.jpg",
+      imageUrl: "/images/gene.jpg",
       reviewerName: "Nisha B",
       review:
         "The explanations are clear, and the exercises have made a noticeable difference in my life.",
     },
     {
       id: 9,
-      imageUrl: "/images/kayley.jpg",
+      imageUrl: "/images/rayhan.jpg",
       reviewerName: "David H",
       review:
         "Insightful and practical, this book provides powerful strategies for emotional release.",
     },
     {
       id: 10,
-      imageUrl: "/images/gene.jpg",
+      imageUrl: "/images/rayhan.jpg",
       reviewerName: "Anjali C",
       review:
         "A comprehensive guide to understanding and overcoming the freeze response.",
     },
     {
       id: 11,
-      imageUrl: "/images/alan.jpg",
+      imageUrl: "/images/gene.jpg",
       reviewerName: "Emily P",
       review:
         "A must-read for anyone looking to understand the mind-body connection.",
     },
     {
       id: 12,
-      imageUrl: "/images/rayhan.jpg",
+      imageUrl: "/images/gene.jpg",
       reviewerName: "Aishwarya M",
       review:
         "Clear and concise, this book offers a fresh perspective on managing stress and emotions.",
     },
     {
       id: 13,
-      imageUrl: "/images/kayley.jpg",
+      imageUrl: "/images/rayhan.jpg",
       reviewerName: "Michael C",
       review:
         "The author's approach to explaining complex topics is both engaging and accessible.",
     },
     {
       id: 14,
-      imageUrl: "/images/gene.jpg",
+      imageUrl: "/images/rayhan.jpg",
       reviewerName: "Siddharth V",
       review:
         "A practical and effective guide to overcoming the freeze response.",
     },
     {
       id: 15,
-      imageUrl: "/images/alan.jpg",
+      imageUrl: "/images/rayhan.jpg",
       reviewerName: "Lucas W",
       review:
         "The structured approach in this book makes it easy to follow and apply the techniques.",
     },
     {
       id: 16,
-      imageUrl: "/images/rayhan.jpg",
+      imageUrl: "/images/.jpg",
       reviewerName: "Priya T",
       review:
         "A well-written book that offers valuable insights into overcoming immobilization.",
     },
     {
       id: 17,
-      imageUrl: "/images/kayley.jpg",
+      imageUrl: "/images/gene.jpg",
       reviewerName: "Emma B",
       review:
         "The blend of scientific explanation and practical exercises is exceptional.",
     },
     {
       id: 18,
-      imageUrl: "/images/gene.jpg",
+      imageUrl: "/images/rayhan.jpg",
       reviewerName: "Vikas P",
       review:
         "A practical guide that blends theory with exercises that are easy to follow and impactful.",
     },
     {
       id: 19,
-      imageUrl: "/images/alan.jpg",
+      imageUrl: "/images/rayhan.jpg",
       reviewerName: "Olivia K",
       review: "A fantastic read with insightful approaches to managing stress.",
     },
@@ -153,7 +153,7 @@ function TestimonialSection() {
     },
     {
       id: 21,
-      imageUrl: "/images/kayley.jpg",
+      imageUrl: "/images/gene.jpg",
       reviewerName: "Isabella G",
       review:
         "Highly recommend this book for its practical exercises and clear explanations.",
@@ -167,21 +167,21 @@ function TestimonialSection() {
     },
     {
       id: 23,
-      imageUrl: "/images/alan.jpg",
+      imageUrl: "/images/rayhan.jpg",
       reviewerName: "William N",
       review:
         "The insights in this book have helped me better cope with stress and anxiety.",
     },
     {
       id: 24,
-      imageUrl: "/images/rayhan.jpg",
+      imageUrl: "/images/gene.jpg",
       reviewerName: "Meera P",
       review:
         "Well-structured and insightful, this book has been very helpful in my journey.",
     },
     {
       id: 25,
-      imageUrl: "/images/kayley.jpg",
+      imageUrl: "/images/rayhan.jpg",
       reviewerName: "Benjamin J",
       review:
         "An invaluable resource for anyone looking to reconnect with their body.",
@@ -194,7 +194,7 @@ function TestimonialSection() {
     },
     {
       id: 27,
-      imageUrl: "/images/alan.jpg",
+      imageUrl: "/images/gene.jpg",
       reviewerName: "Hannah K",
       review: "A great read for those interested in somatic healing practices.",
     },
@@ -235,7 +235,7 @@ function TestimonialSection() {
     },
     {
       id: 33,
-      imageUrl: "/images/kayley.jpg",
+      imageUrl: "/images/gene.jpg",
       reviewerName: "Alice F",
       review:
         "The mindfulness techniques in this book are easy to implement and very helpful.",
@@ -249,7 +249,7 @@ function TestimonialSection() {
     },
     {
       id: 35,
-      imageUrl: "/images/alan.jpg",
+      imageUrl: "/images/rayhan.jpg",
       reviewerName: "Daniel H",
       review:
         "A well-crafted book that provides deep insights into overcoming immobilization.",
