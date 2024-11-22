@@ -643,7 +643,7 @@ function HeroSection() {
                     <Link
                       href={
                         countryph === "ind"
-                          ? "https://rzp.io/rzp/Y797OIrM"
+                          ? "https://rzp.io/rzp/38770yOK"
                           : "https://www.paypal.com/ncp/payment/S9XLR7J83NHKU"
                       }
                       className="mt-6 bg-primary hover:opacity-90 hover:bg-secondary text-white py-2 px-6 rounded-full shadow-none text-sm sm:text-base lg:text-lg"
