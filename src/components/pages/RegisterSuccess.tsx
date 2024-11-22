@@ -58,7 +58,6 @@ function RegisterSuccess() {
             </p>
             <a
               href={pdfLink}
-              target="_blank"
               rel="noopener noreferrer"
               className="block w-full text-center bg-[#FF6600] text-white p-2 rounded-md border border-[#FF6600] hover:bg-white hover:text-[#FF6600] transition duration-200 font-bold"
               download
