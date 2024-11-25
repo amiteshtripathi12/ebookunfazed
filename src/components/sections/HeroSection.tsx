@@ -604,16 +604,24 @@ function HeroSection() {
                     {countryph === "ind" ? (
                       <>
                         {isApplied && (
-                          <div className="">
-                            <span className="font-mono text-xl md:text-lg font-medium text-gray-400 dark:text-gray-400">
-                              ₹
-                            </span>
-                            <span className="h1 line-through text-gray-600 dark:text-gray-400">
-                              2499
-                            </span>
-                            <span className="text-red-600 text-sm ml-2">
-                              Special promotion
-                            </span>
+                          <div className="flex justify-center">
+                            <div className="">
+                              <span className="font-mono text-xl md:text-lg font-medium text-gray-400 dark:text-gray-400">
+                                ₹
+                              </span>
+                              <span className="h1 line-through text-gray-600 dark:text-gray-400">
+                                2499
+                              </span>
+                              <span className="text-red-600 text-sm ml-2">
+                                Special promotion
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2 ml-4">
+                              <Clock color="#ff6600" className="w-4 h-4" />
+                              <span className="font-mono">
+                                {formatTime(timeLeft)}
+                              </span>
+                            </div>
                           </div>
                         )}
 
