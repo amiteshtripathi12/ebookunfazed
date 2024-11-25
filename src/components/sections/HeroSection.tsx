@@ -13,7 +13,14 @@ import {
 } from "@/components/ui/dialog";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {format} from "date-fns";
-import {CalendarIcon, CheckCircle, Clock, Copy, PhoneCall} from "lucide-react";
+import {
+  CalendarIcon,
+  CheckCircle,
+  Clock,
+  Copy,
+  Loader2,
+  PhoneCall,
+} from "lucide-react";
 import {useForm} from "react-hook-form";
 import {z} from "zod";
 import {cn} from "@/lib/utils";
@@ -101,6 +108,7 @@ function HeroSection() {
   const couponRef = useRef<HTMLDivElement | null>(null);
   const [couponInput, setCouponInput] = useState("");
   const [invalidCoupon, setInvalidCoupon] = useState(false);
+  const [isSubmiting, setIsSubmiting] = useState(false);
 
   const [coupons, setCoupons] = useState<{code: string; expiresAt: number}[]>(
     []
@@ -200,11 +208,10 @@ function HeroSection() {
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log({data});
-
+    setIsSubmiting(true);
     if (data.phoneNumber?.startsWith("91")) {
       setCountryph("ind");
     }
-
     try {
       const formData = new FormData();
       Object.entries(data).forEach(([key, value]) => {
@@ -239,6 +246,7 @@ function HeroSection() {
       setShowType("question");
 
       console.log("Form submitted successfully:", response.data);
+      setIsSubmiting(false);
     } catch (error) {
       toast({
         variant: "destructive",
@@ -247,6 +255,7 @@ function HeroSection() {
       });
       console.error("Error submitting form:", error);
     }
+    setIsSubmiting(false);
   }
 
   return (
@@ -689,13 +698,22 @@ function HeroSection() {
               )}
               <DialogFooter>
                 {showType === "form" ? (
-                  <Button
-                    type="submit"
-                    form="myForm"
-                    className="bg-primary w-[8.125rem] hover:opacity-90 hover:bg-secondary text-white shadow-none"
-                  >
-                    Book Now
-                  </Button>
+                  isSubmiting ? (
+                    <Button
+                      className="bg-primary w-[8.125rem] text-white shadow-none"
+                      disabled
+                    >
+                      <Loader2 className="animate-spin" /> Please wait
+                    </Button>
+                  ) : (
+                    <Button
+                      type="submit"
+                      form="myForm"
+                      className="bg-primary w-[8.125rem] hover:opacity-90 hover:bg-secondary text-white shadow-none"
+                    >
+                      Book Now
+                    </Button>
+                  )
                 ) : showType === "question" ? (
                   <Button
                     onClick={() => {
