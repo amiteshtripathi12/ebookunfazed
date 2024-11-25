@@ -6,8 +6,15 @@ import {usePathname} from "next/navigation";
 import {X} from "lucide-react";
 import MainButton from "./MainButton";
 import Link from "next/link";
+import {Button} from "../ui/button";
 
-function NavBar() {
+function NavBar({
+  isDialogOpen,
+  setIsDialogOpen,
+}: {
+  isDialogOpen: boolean;
+  setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const [menu, setMenu] = useState(false);
   const [scrollTarget, setScrollTarget] = useState<string | null>(null);
   const router = useRouter();
@@ -78,7 +85,15 @@ function NavBar() {
             </Link>
           </div>
           <div className="flex items-center gap-[40px] select-none">
-            <MainButton text="Sign up" classes="shadow-none" />
+            <Button
+              onClick={() => {
+                handleNavigation("home-section");
+                setIsDialogOpen(true);
+              }}
+              className=" bg-primary hover:opacity-90  hover:bg-secondary text-white shadow-none min-h-4 w-[8.125rem]"
+            >
+              Book Now
+            </Button>
           </div>
         </div>
       </div>
@@ -139,7 +154,15 @@ function NavBar() {
                 </p>
               </Link>
               <div className="flex flex-col gap-[40px] select-none">
-                <MainButton text="Sign up" classes="shadow-none" />
+                <Button
+                  onClick={() => {
+                    handleNavigation("home-section");
+                    setIsDialogOpen(true);
+                  }}
+                  className=" bg-primary hover:opacity-90  hover:bg-secondary text-white shadow-none min-h-4 w-[8.125rem]"
+                >
+                  Book Now
+                </Button>
               </div>
             </div>
           </div>

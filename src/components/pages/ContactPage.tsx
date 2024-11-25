@@ -98,7 +98,7 @@ function ContactPage() {
               </div>
             </div>
           </div>
-          <div className="bg-primary/10 p-5 rounded-2xl font-poppins">
+          {/* <div className="bg-primary/10 p-5 rounded-2xl font-poppins">
             <form className="space-y-3 text-left">
               <div className="relative">
                 <label className="flex text-primary items-center mb-2  text-base leading-6 font-medium">
@@ -208,7 +208,7 @@ function ContactPage() {
                 SEND MESSAGE
               </button>
             </form>
-          </div>
+          </div> */}
           <div className="space-y-6 font-poppins md:hidden">
             <div className="flex justify-start items-start gap-3">
               <span className="bg-primary p-[2px] aspect-square min-w-7 min-h-7 flex justify-center items-center rounded-full">

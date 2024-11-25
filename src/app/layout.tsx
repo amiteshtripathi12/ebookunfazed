@@ -1,14 +1,11 @@
+"use client";
+import {createContext, useContext, useState} from "react";
 import type {Metadata} from "next";
 import "./globals.css";
 import {Nunito} from "next/font/google";
 import localFont from "next/font/local";
 import {Toaster} from "@/components/ui/toaster";
 import NavBar from "@/components/common/NavBar";
-
-export const metadata: Metadata = {
-  title: "Unfazed",
-  description: "Online Training with Unfazed",
-};
 
 const ageo = localFont({
   src: [
@@ -41,13 +38,25 @@ const nunito = Nunito({
   subsets: ["latin"],
 });
 
+export const DialogContext = createContext<{
+  isDialogOpen: boolean;
+  setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+} | null>(null);
+
 export default function RootLayout({children}: {children: React.ReactNode}) {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   return (
     <html lang="en">
       <body className={nunito.className}>
-      <NavBar />
-        <main>{children}</main>
-        <Toaster />
+        <DialogContext.Provider value={{isDialogOpen, setIsDialogOpen}}>
+          <NavBar
+            isDialogOpen={isDialogOpen}
+            setIsDialogOpen={setIsDialogOpen}
+          />
+          <main>{children}</main>
+          <Toaster />
+        </DialogContext.Provider>
       </body>
     </html>
   );

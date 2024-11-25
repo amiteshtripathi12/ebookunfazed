@@ -1,6 +1,7 @@
 "use client";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import {Button} from "@/components/ui/button";
+import {DialogContext} from "@/app/layout";
 import {
   Dialog,
   DialogContent,
@@ -66,6 +67,17 @@ function HeroSection() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
+
+  const dialogContext = useContext(DialogContext);
+
+  if (!dialogContext) {
+    throw new Error(
+      "DialogContext is not available. Ensure it's used within the provider."
+    );
+  }
+
+  const {isDialogOpen, setIsDialogOpen} = dialogContext;
+
   const [showType, setShowType] = useState("form");
   const [userDetails, setUserDetails] = useState({
     id: "",
@@ -75,7 +87,6 @@ function HeroSection() {
     dob: "",
     phoneNumber: "",
   });
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [countryph, setCountryph] = useState("us");
   const {toast} = useToast();
@@ -504,7 +515,7 @@ function HeroSection() {
                             Special Offer!
                           </h3>
                           <div className="flex items-center gap-2">
-                            <Clock className="w-4 h-4" />
+                            <Clock color="#ff6600" className="w-4 h-4" />
                             <span className="font-mono">
                               {formatTime(timeLeft)}
                             </span>
@@ -616,16 +627,24 @@ function HeroSection() {
                     ) : (
                       <>
                         {isApplied && (
-                          <div className="">
-                            <span className="font-mono text-xl md:text-lg font-medium text-gray-400 dark:text-gray-400">
-                              $
-                            </span>
-                            <span className="h1 line-through text-gray-600 dark:text-gray-400">
-                              99
-                            </span>
-                            <span className="text-red-600 text-sm ml-2">
-                              Special promotion
-                            </span>
+                          <div className="flex justify-center">
+                            <div className="">
+                              <span className="font-mono text-xl md:text-lg font-medium text-gray-400 dark:text-gray-400">
+                                $
+                              </span>
+                              <span className="h1 line-through text-gray-600 dark:text-gray-400">
+                                99
+                              </span>
+                              <span className="text-red-600 text-sm ml-2">
+                                Special promotion
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2 ml-4">
+                              <Clock color="#ff6600" className="w-4 h-4" />
+                              <span className="font-mono">
+                                {formatTime(timeLeft)}
+                              </span>
+                            </div>
                           </div>
                         )}
 
@@ -683,7 +702,7 @@ function HeroSection() {
               </DialogFooter>
             </DialogContent>
           </Dialog>
-          <div className="flex gap-[1.56rem] items-center">
+          {/* <div className="flex gap-[1.56rem] items-center">
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
               <DialogTrigger asChild>
                 <button className="flex gap-2 items-center hover:opacity-90 transition-opacity">
@@ -712,7 +731,7 @@ function HeroSection() {
                 </div>
               </DialogContent>
             </Dialog>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="flex justify-center items-center">
