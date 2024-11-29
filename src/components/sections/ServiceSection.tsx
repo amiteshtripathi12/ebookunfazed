@@ -4,7 +4,7 @@ import Header from "../common/Header";
 function ServiceSection() {
   return (
     <section className="pt-[2rem]">
-      <Header subtitle="About This EBook" />
+      <Header subtitle="About The EBook" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[3.56rem] justify-around mt-8 md:mt-[6.75rem]">
         {/* First Service Card */}
         <div className="flex flex-grow flex-col gap-[1rem] pt-[2rem] pb-[2rem] px-[2rem] items-center service-card-shadow rounded-[0.75rem]">

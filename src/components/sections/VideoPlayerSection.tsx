@@ -215,17 +215,16 @@ function VideoPlayerSection() {
               </div>
 
               <p className="text-gray-700">
-                *Healing from the Functional Freeze State* is a transformative
-                guide that helps you understand and overcome the immobilizing
-                effects of stress and trauma. Whether you are someone who has
-                experienced emotional numbness or simply looking to regain a
-                deeper connection with your body and mind, this book offers
-                practical techniques, exercises, and expert insights to support
-                your healing journey. It’s designed for those who want to break
-                free from the freeze response and regain emotional balance,
-                offering tools that can be applied immediately for lasting
-                change.
+                <strong>Healing from the Functional Freeze State</strong> is a transformative
+                guide that helps you understand and overcome the immobilizing effects of
+                stress and trauma. Whether you are someone who has experienced emotional
+                numbness or simply looking to regain a deeper connection with your body and
+                mind, this book offers practical techniques, exercises, and expert insights
+                to support your healing journey. It’s designed for those who want to break
+                free from the freeze response and regain emotional balance, offering tools
+                that can be applied immediately for lasting change.
               </p>
+
             </div>
 
             <div className="flex flex-col items-center justify-center mt-4">

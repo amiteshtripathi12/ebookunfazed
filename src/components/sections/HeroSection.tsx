@@ -261,18 +261,22 @@ function HeroSection() {
   return (
     <section className="flex justify-between flex-col md:flex-row gap-4 items-center">
       <div>
-        <p className="font-[700] md:leading-[5.0625rem] text-2xl md:text-[3.375rem] text-darkBlue">
-          India's Fastest Growing Mental Health Creator
-        </p>
+      <p className="font-[700] md:leading-[4.5rem] text-xl md:text-[2.875rem] text-darkBlue">
+        Unlock your Potential, Regain Control, and Live Life with Purpose and Confidence
+      </p>
+
+
         <p className="text-[1.375rem] font-[500]">
-          Presenting a life-changing guide to help you <br /> reconnect and
-          heal!
+          Healing from the Functional Freeze State – your path to resilience
+          and growth.
         </p>
 
         <p className="text-[1rem] font-[500]">
-          *Healing from the Functional Freeze State* – your path to resilience
-          and growth.
+          Presenting a life-changing guide to help you reconnect and
+          heal!
         </p>
+
+        
 
         <div className="flex gap-[1.75rem] items-center mt-[2rem]">
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

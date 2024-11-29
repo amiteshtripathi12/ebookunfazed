@@ -264,7 +264,7 @@ function TestimonialSection() {
 
   return (
     <section className="mt-[9rem]">
-      <Header subtitle="What people are saying about our book" />
+      <Header subtitle="What people are saying about our EBook" />
       <div className="grid grid-cols-1 gap-16 md:grid-cols-2 mt-8 md:mt-[6.75rem]">
         {appReviewData.slice(0, visibleReviews).map((review) => (
           <TestimonialCard
