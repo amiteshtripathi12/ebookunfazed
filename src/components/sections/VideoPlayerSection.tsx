@@ -26,6 +26,7 @@ import {
   GraduationCap,
   UserRound,
 } from "lucide-react";
+import Header from "../common/Header";
 
 function VideoPlayerSection() {
   const coursesData = [
@@ -156,144 +157,167 @@ function VideoPlayerSection() {
   };
 
   return (
-    <section className="flex flex-col md:flex-row justify-between items-center gap-8 mt-[11.31rem]">
-      <div>
-        <p className="text-lightBlue font-bold text-2xl">Our Book Content</p>
-        <p className="text-customLightGray text-[1.2rem] mt-4 mb-8">
-        Have you ever felt stuck in life—moving through daily routines but feeling emotionally numb and disconnected? 
-        Imagine feeling trapped in the stillness of your own mind—where the body moves through routines, yet the soul feels paralyzed, unable to break free.
-        </p>
+    <section className="mt-[10rem]">
+      <Header subtitle="About The EBook" />
+      <div className="flex flex-col md:flex-row justify-between items-center gap-8 mt-[4rem]">
+        <div>
+          <p className="text-lightBlue font-bold text-2xl">Our Book Content</p>
+          <p className="text-customLightGray text-[1.2rem] mt-4 mb-8">
+            Have you ever felt stuck in life—moving through daily routines but
+            feeling emotionally numb and disconnected? Imagine feeling trapped
+            in the stillness of your own mind—where the body moves through
+            routines, yet the soul feels paralyzed, unable to break free.
+          </p>
 
-        <Dialog>
-          <DialogTrigger asChild>
-            {/* <MainButton
+          <Dialog>
+            <DialogTrigger asChild>
+              {/* <MainButton
                 text="Book Now"
                 classes="shadow-none w-[10.125rem]"
               /> */}
-            <Button className="!h-[3.01544rem] hover:bg-white w-[8.2925rem] text-lightBlue font-bold text-[1rem] rounded-[6.25rem] border-[4px] border-[#EBEAED] bg-white shadow-none">
-              Explore
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="fixed left-[50%] top-[60%] w-full max-w-[800px] min-h-[90vh] sm:max-w-[800px] overflow-y-scroll max-h-screen ">
-            <DialogHeader>
-              <DialogTitle>More About Book</DialogTitle>
-            </DialogHeader>
+              <Button className="!h-[3.01544rem] hover:bg-white w-[8.2925rem] text-lightBlue font-bold text-[1rem] rounded-[6.25rem] border-[4px] border-[#EBEAED] bg-white shadow-none">
+                Explore
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="fixed left-[50%] top-[60%] w-full max-w-[800px] min-h-[90vh] sm:max-w-[800px] overflow-y-scroll max-h-screen ">
+              <DialogHeader>
+                <DialogTitle>More About Book</DialogTitle>
+              </DialogHeader>
 
-            <div className="p-6 mt-4 border rounded-lg shadow-sm space-y-6">
-              <h2 className="text-2xl font-semibold">About the Book</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="flex items-center space-x-4">
-                  <CalendarDays color="#ff6600" />
-                  <div>
-                    <p className="font-semibold">Publish Date</p>
-                    <p>08 October 2024</p>
+              <div className="p-6 mt-4 border rounded-lg shadow-sm space-y-6">
+                <h2 className="text-2xl font-semibold">About the Book</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="flex items-center space-x-4">
+                    <CalendarDays color="#ff6600" />
+                    <div>
+                      <p className="font-semibold">Publish Date</p>
+                      <p>08 October 2024</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <Clock color="#ff6600" />
+                    <div>
+                      <p className="font-semibold">Reading Time</p>
+                      <p>16hrs | 6 weeks</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <UserRound color="#ff6600" />
+                    <div>
+                      <p className="font-semibold">Who this book is for</p>
+                      <p>
+                        For anyone feeling stuck and seeking practical ways to
+                        regain emotional balance and move
+                        forward with confidence
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <Book color="#ff6600" />
+                    <div>
+                      <p className="font-semibold">Format</p>
+                      <p>EBook</p>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center space-x-4">
-                  <Clock color="#ff6600" />
-                  <div>
-                    <p className="font-semibold">Reading Time</p>
-                    <p>16hrs | 6 weeks</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <UserRound color="#ff6600" />
-                  <div>
-                    <p className="font-semibold">Who this book is for</p>
-                    <p>
-                    For anyone feeling stuck and seeking practical ways to regain emotional balance and move forward with confidence
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <Book color="#ff6600" />
-                  <div>
-                    <p className="font-semibold">Format</p>
-                    <p>EBook</p>
-                  </div>
-                </div>
+
+                <p className="text-gray-700">
+                  Have you ever felt stuck in life—moving through daily routines
+                  but feeling emotionally numb and disconnected? Imagine feeling
+                  trapped in the stillness of your own mind—where the body moves
+                  through routines, yet the soul feels paralyzed, unable to
+                  break free. Functional Freeze delves into this silent struggle
+                  that many experience but few can articulate. Break Free From
+                  Functional Freeze uncovers this hidden state, where your mind
+                  and emotions feel paralyzed even though your body keeps going.
+                  Created by a therapist who has worked with numerous clients
+                  facing the same struggle, this book combines relatable
+                  stories, practical solutions, and insights rooted in
+                  psychology. With tried-and-tested strategies and a
+                  compassionate approach, it offers you the tools to heal, break
+                  free from the cycle, and rediscover a life full of purpose,
+                  connection, and joy.
+                </p>
               </div>
 
-              <p className="text-gray-700">
-              Have you ever felt stuck in life—moving through daily routines but feeling emotionally numb and disconnected? 
-Imagine feeling trapped in the stillness of your own mind—where the body moves through routines, yet the soul feels paralyzed, unable to break free. Functional Freeze delves into this silent struggle that many experience but few can articulate.
-Break Free From Functional Freeze uncovers this hidden state, where your mind and emotions feel paralyzed even though your body keeps going. Created by a therapist who has worked with numerous clients facing the same struggle, this book combines relatable stories, practical solutions, and insights rooted in psychology. With tried-and-tested strategies and a compassionate approach, it offers you the tools to heal, break free from the cycle, and rediscover a life full of purpose, connection, and joy.
-              </p>
+              <div className="flex flex-col items-center justify-center mt-4">
+                <h2 className="text-2xl font-semibold">What you'll learn</h2>
+                <div className="mt-8">
+                  <h2 className="text-xl font-bold mb-4">Book's Objective</h2>
+                  <ul className="space-y-3">
+                    <li className="flex items-start">
+                      <span className="mr-2">—</span>
+                      <span>
+                        Understand the concept of functional freeze and its
+                        impact on daily life.
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">—</span>
+                      <span>
+                        Explore real-life examples and insights from a
+                        therapist’s experience.
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">—</span>
+                      <span>
+                        Learn practical, tried-and-tested strategies to break
+                        free from emotional paralysis.
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">—</span>
+                      <span>
+                        Develop tools to regain control, resilience, and
+                        emotional clarity.
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">—</span>
+                      <span>
+                        Build a personalized path toward lasting mental and
+                        emotional well-being.
+                      </span>
+                    </li>
+                  </ul>
+                </div>
 
-            </div>
-
-            <div className="flex flex-col items-center justify-center mt-4">
-              <h2 className="text-2xl font-semibold">What you'll learn</h2>
-              <div className="mt-8">
-                <h2 className="text-xl font-bold mb-4">Book's Objective</h2>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <span className="mr-2">—</span>
-                    <span>
-                    Understand the concept of functional freeze and its impact on daily life.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2">—</span>
-                    <span>
-                    Explore real-life examples and insights from a therapist’s experience.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2">—</span>
-                    <span>
-                    Learn practical, tried-and-tested strategies to break free from emotional paralysis.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2">—</span>
-                    <span>
-                    Develop tools to regain control, resilience, and emotional clarity.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2">—</span>
-                    <span>
-                    Build a personalized path toward lasting mental and emotional well-being.
-                    </span>
-                  </li>
-                </ul>
+                <div className="w-[77%] mt-8">
+                  <h2 className="text-xl font-bold mb-2">Book RoadMap</h2>
+                  <Accordion type="single" collapsible>
+                    {coursesData.map((course, index) => (
+                      <AccordionItem key={index} value={`item-${index}`}>
+                        <AccordionTrigger className="text-[1rem] font-[600]">
+                          {course.title}
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          <ul className="list-none pl-5 space-y-2">
+                            {course.topics.map((topic, topicIndex) => (
+                              <li key={topicIndex} className="relative pl-4">
+                                <span className="absolute left-0 top-0 text-xl text-orange-500">
+                                  •
+                                </span>
+                                {topic}
+                              </li>
+                            ))}
+                          </ul>
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </div>
               </div>
-
-              <div className="w-[77%] mt-8">
-                <h2 className="text-xl font-bold mb-2">Book RoadMap</h2>
-                <Accordion type="single" collapsible>
-                  {coursesData.map((course, index) => (
-                    <AccordionItem key={index} value={`item-${index}`}>
-                      <AccordionTrigger className="text-[1rem] font-[600]">
-                        {course.title}
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <ul className="list-none pl-5 space-y-2">
-                          {course.topics.map((topic, topicIndex) => (
-                            <li key={topicIndex} className="relative pl-4">
-                              <span className="absolute left-0 top-0 text-xl text-orange-500">
-                                •
-                              </span>
-                              {topic}
-                            </li>
-                          ))}
-                        </ul>
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
-      </div>
-      <div className="flex justify-center items-center w-[90%] max-w-4xl max-h-[28rem] mx-auto my-8 rounded-xl">
-        <img
-          src="/images/book_image.jpg"
-          alt="book_image"
-          className="w-full max-w-[80%] h-auto max-h-[80%] object-contain rounded-xl"
-        />
+            </DialogContent>
+          </Dialog>
+        </div>
+        <div className="flex justify-center items-center w-[90%] max-w-4xl max-h-[28rem] mx-auto my-8 rounded-xl">
+          <img
+            src="/images/book_image.jpg"
+            alt="book_image"
+            className="w-full max-w-[80%] h-auto max-h-[80%] object-contain rounded-xl"
+          />
+        </div>
       </div>
     </section>
   );

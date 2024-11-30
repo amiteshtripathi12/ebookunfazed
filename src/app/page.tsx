@@ -18,9 +18,10 @@ export default function Home() {
           <HeroSection />
         </div>
         <div id="about-section">
+          <VideoPlayerSection />
           <ServiceSection />
         </div>
-        <VideoPlayerSection />
+
         <TestimonialSection />
         <div id="qa-section">
           <FAQSection />
