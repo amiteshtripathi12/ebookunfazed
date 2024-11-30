@@ -313,7 +313,7 @@ function VideoPlayerSection() {
         </div>
         <div className="flex justify-center items-center w-[90%] max-w-4xl max-h-[28rem] mx-auto my-8 rounded-xl">
           <img
-            src="/images/book_image.jpg"
+            src="/images/book.png"
             alt="book_image"
             className="w-full max-w-[80%] h-auto max-h-[80%] object-contain rounded-xl"
           />
