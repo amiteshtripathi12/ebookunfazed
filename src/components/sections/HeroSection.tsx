@@ -262,13 +262,12 @@ function HeroSection() {
     <section className="flex justify-between flex-col md:flex-row gap-4 items-center">
       <div>
       <p className="font-[700] md:leading-[4.5rem] text-xl md:text-[2.875rem] text-darkBlue">
-        Unlock your Potential, Regain Control, and Live Life with Purpose and Confidence
+      Break Free From Functional Freeze
       </p>
 
 
         <p className="text-[1.375rem] font-[500]">
-          Healing from the Functional Freeze State – your path to resilience
-          and growth.
+        Unlock your potential, regain control, and live life with purpose and confidence
         </p>
 
         <p className="text-[1rem] font-[500]">

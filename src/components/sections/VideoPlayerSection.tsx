@@ -160,8 +160,8 @@ function VideoPlayerSection() {
       <div>
         <p className="text-lightBlue font-bold text-2xl">Our Book Content</p>
         <p className="text-customLightGray text-[1.2rem] mt-4 mb-8">
-          A transformative guide designed to help you reconnect with yourself
-          and move forward with clarity and resilience.
+        Have you ever felt stuck in life—moving through daily routines but feeling emotionally numb and disconnected? 
+        Imagine feeling trapped in the stillness of your own mind—where the body moves through routines, yet the soul feels paralyzed, unable to break free.
         </p>
 
         <Dialog>
@@ -201,7 +201,7 @@ function VideoPlayerSection() {
                   <div>
                     <p className="font-semibold">Who this book is for</p>
                     <p>
-                      For anyone seeking emotional healing and self-awareness
+                    For anyone feeling stuck and seeking practical ways to regain emotional balance and move forward with confidence
                     </p>
                   </div>
                 </div>
@@ -209,20 +209,15 @@ function VideoPlayerSection() {
                   <Book color="#ff6600" />
                   <div>
                     <p className="font-semibold">Format</p>
-                    <p>eBook</p>
+                    <p>EBook</p>
                   </div>
                 </div>
               </div>
 
               <p className="text-gray-700">
-                <strong>Healing from the Functional Freeze State</strong> is a transformative
-                guide that helps you understand and overcome the immobilizing effects of
-                stress and trauma. Whether you are someone who has experienced emotional
-                numbness or simply looking to regain a deeper connection with your body and
-                mind, this book offers practical techniques, exercises, and expert insights
-                to support your healing journey. It’s designed for those who want to break
-                free from the freeze response and regain emotional balance, offering tools
-                that can be applied immediately for lasting change.
+              Have you ever felt stuck in life—moving through daily routines but feeling emotionally numb and disconnected? 
+Imagine feeling trapped in the stillness of your own mind—where the body moves through routines, yet the soul feels paralyzed, unable to break free. Functional Freeze delves into this silent struggle that many experience but few can articulate.
+Break Free From Functional Freeze uncovers this hidden state, where your mind and emotions feel paralyzed even though your body keeps going. Created by a therapist who has worked with numerous clients facing the same struggle, this book combines relatable stories, practical solutions, and insights rooted in psychology. With tried-and-tested strategies and a compassionate approach, it offers you the tools to heal, break free from the cycle, and rediscover a life full of purpose, connection, and joy.
               </p>
 
             </div>
@@ -235,43 +230,38 @@ function VideoPlayerSection() {
                   <li className="flex items-start">
                     <span className="mr-2">—</span>
                     <span>
-                      Understand how the body responds with immobilization in
-                      stressful situations
+                    Understand the concept of functional freeze and its impact on daily life.
                     </span>
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2">—</span>
                     <span>
-                      Recognize the signs and symptoms of functional freeze,
-                      including numbness and emotional detachment
+                    Explore real-life examples and insights from a therapist’s experience.
                     </span>
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2">—</span>
                     <span>
-                      Learn somatic techniques for releasing the freeze state,
-                      such as grounding exercises and body scans
+                    Learn practical, tried-and-tested strategies to break free from emotional paralysis.
                     </span>
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2">—</span>
                     <span>
-                      Cultivate emotional awareness and expression through
-                      journaling and self-reflection
+                    Develop tools to regain control, resilience, and emotional clarity.
                     </span>
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2">—</span>
                     <span>
-                      Use mindfulness and breathwork to overcome the
-                      immobilization of the freeze state
+                    Build a personalized path toward lasting mental and emotional well-being.
                     </span>
                   </li>
                 </ul>
               </div>
 
               <div className="w-[77%] mt-8">
-                <h2 className="text-xl font-bold mb-2">Book Roadmap</h2>
+                <h2 className="text-xl font-bold mb-2">Book RoadMap</h2>
                 <Accordion type="single" collapsible>
                   {coursesData.map((course, index) => (
                     <AccordionItem key={index} value={`item-${index}`}>
