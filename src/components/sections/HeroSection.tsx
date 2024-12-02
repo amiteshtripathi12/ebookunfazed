@@ -93,6 +93,7 @@ function HeroSection() {
     email: "",
     dob: "",
     phoneNumber: "",
+    message: "null",
   });
   const [isOpen, setIsOpen] = useState(false);
   const [countryph, setCountryph] = useState("us");
@@ -449,26 +450,6 @@ function HeroSection() {
                                   />
                                 </PopoverContent>
                               </Popover> */}
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                      <div>
-                        <FormField
-                          control={form.control}
-                          name="message"
-                          render={({field}) => (
-                            <FormItem>
-                              <FormLabel>Message</FormLabel>
-                              <FormControl>
-                                <Textarea
-                                  {...field}
-                                  placeholder="Enter your message"
-                                  className="w-full"
-                                  rows={4}
-                                />
-                              </FormControl>
                               <FormMessage />
                             </FormItem>
                           )}
