@@ -764,7 +764,7 @@ function HeroSection() {
         <img
           src="/images/main_image.jpg"
           alt="main_image"
-          className="w-full max-w-[80%] h-auto max-h-[70%] object-contain"
+          className="w-full max-w-[80%] h-auto max-h-[90vh] object-contain"
         />
       </div>
     </section>
