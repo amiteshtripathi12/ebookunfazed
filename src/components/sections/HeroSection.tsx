@@ -762,9 +762,9 @@ function HeroSection() {
       </div>
       <div className="flex justify-center items-center">
         <img
-          src="/images/main_image.png"
-          alt="guy with phone surrounded by action icons"
-          className="w-full max-w-[80%] h-auto max-h-[80%] object-contain"
+          src="/images/main_image.jpg"
+          alt="main_image"
+          className="w-full max-w-[80%] h-auto max-h-[70%] object-contain"
         />
       </div>
     </section>
