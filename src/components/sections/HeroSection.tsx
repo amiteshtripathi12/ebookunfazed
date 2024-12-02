@@ -60,9 +60,6 @@ const FormSchema = z.object({
   lastName: z
     .string()
     .min(2, {message: "Lastname must be at least 2 characters."}),
-  message: z
-    .string()
-    .min(2, {message: "Message must be at least 2 characters."}),
   email: z.string().email({message: "Invalid email address."}),
   phoneNumber: z
     .string()
