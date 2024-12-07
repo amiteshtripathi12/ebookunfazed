@@ -67,12 +67,51 @@ const FormSchema = z.object({
     .regex(/^\d+$/, {message: "Phone number must contain only digits."}),
 });
 
+const cards = [
+  {
+    id: 0,
+    priceINR: "₹2499",
+    priceDiscountedINR: "₹499",
+    price: "$99",
+    priceDiscounted: "$39.99",
+    features: [
+      "1 Therapy Session(First 200 people)",
+      "5 Different audiobooks",
+      "Access to our Private Community for 3 Months",
+      "Q&A sessions with Jasneet",
+      "Journals",
+      "Self Reflection worksheets",
+      "Early bird offers to our upcoming webinars specially for clients",
+      "Journals",
+    ],
+  },
+  {
+    id: 1,
+    priceINR: "₹15694",
+    priceDiscountedINR: "₹999",
+    price: "$862.96",
+    priceDiscounted: "$59.99",
+    isPopular: true,
+    features: [
+      "1 Therapy Session(First 200 people)",
+      "5 Different audiobooks",
+      "Access to our Private Community for 3 Months",
+      "Q&A sessions with Jasneet",
+      "Journals",
+      "Self Reflection worksheets",
+      "Early bird offers to our upcoming webinars specially for clients",
+      "Journals",
+    ],
+  },
+];
+
 function HeroSection() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
   const dialogContext = useContext(DialogContext);
+  const [selectedCard, setSelectedCard] = useState(1);
 
   if (!dialogContext) {
     throw new Error(
@@ -82,7 +121,7 @@ function HeroSection() {
 
   const {isDialogOpen, setIsDialogOpen} = dialogContext;
 
-  const [showType, setShowType] = useState("form");
+  const [showType, setShowType] = useState("question");
   const [userDetails, setUserDetails] = useState({
     id: "",
     firstName: "",
@@ -193,6 +232,18 @@ function HeroSection() {
     }
   };
 
+  const handlePayment = async () => {
+    if (selectedCard == 1 && countryph === "ind") {
+      router.push("https://rzp.io/rzp/OhKpx1R ");
+    } else if (selectedCard == 0 && countryph === "ind") {
+      router.push("https://rzp.io/rzp/38770yOK");
+    } else if (selectedCard == 0 && countryph === "us") {
+      router.push("https://rzp.io/rzp/pVu7MXf");
+    } else if (selectedCard == 1 && countryph === "us") {
+      router.push("https://rzp.io/rzp/dI5eQFQf");
+    }
+  };
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -275,10 +326,6 @@ function HeroSection() {
         <div className="flex gap-[1.75rem] items-center mt-[2rem]">
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              {/* <MainButton
-                text="Book Now"
-                classes="shadow-none w-[10.125rem]"
-              /> */}
               <Button
                 onClick={() => setIsDialogOpen(true)}
                 className=" bg-primary hover:opacity-90  hover:bg-secondary text-white shadow-none w-[10.125rem]"
@@ -289,10 +336,6 @@ function HeroSection() {
             <DialogContent className="w-full max-w-[800px] sm:max-w-[800px]">
               <DialogHeader>
                 <DialogTitle>Book Now</DialogTitle>
-                {/* <DialogDescription>
-                  Make changes to your profile here. Click save when you're
-                  done.
-                </DialogDescription> */}
               </DialogHeader>
               {showType === "form" ? (
                 <Form {...form}>
@@ -457,7 +500,7 @@ function HeroSection() {
                   </form>
                 </Form>
               ) : showType === "question" ? (
-                <div className="flex flex-col items-center justify-center mt-6 max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto">
+                <div className="flex flex-col items-center justify-center mt-6 w-full mx-auto">
                   <div className="w-full space-y-4 max-h-[75vh] overflow-y-auto custom-scrollbar">
                     {questions.map((question, index) => (
                       <div
@@ -545,133 +588,255 @@ function HeroSection() {
                   </div>
                 </div>
               ) : (
-                <div className="flex flex-col items-center justify-center p-8 mt-6 bg-white rounded-lg shadow-lg max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto">
-                  <img
-                    src="/images/enrollment.png"
-                    alt="Planeeet Logo"
-                    className="w-16 h-16 mb-4"
-                  />
-
-                  <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold">
-                    Get Your eBook Now!
-                  </h1>
-
-                  <div className="w-[80%] max-w-md mt-6">
-                    <div className="flex gap-2 mb-2">
-                      <Input
-                        placeholder="Enter coupon code"
-                        value={couponInput}
-                        onChange={(e) => setCouponInput(e.target.value)}
-                      />
-                      <Button
-                        onClick={handleApplyCoupon}
-                        disabled={couponInput?.length < 0}
-                        variant="outline"
-                        className="w-24"
-                      >
-                        Apply
-                      </Button>
+                <div className=" max-h-[75vh] overflow-y-auto custom-scrollbar">
+                  <div className="flex flex-col items-center justify-center rounded-lg  w-full mx-auto ">
+                    <div className=" max-w-md mt-6">
+                      <div className="flex gap-2 mb-2">
+                        <Input
+                          placeholder="Enter coupon code"
+                          value={couponInput}
+                          onChange={(e) => setCouponInput(e.target.value)}
+                        />
+                        {!isApplied ? (
+                          <Button
+                            onClick={handleApplyCoupon}
+                            disabled={couponInput?.length < 0}
+                            variant="outline"
+                            className="w-24"
+                          >
+                            Apply
+                          </Button>
+                        ) : (
+                          <>
+                            <Button
+                              disabled={couponInput?.length < 0}
+                              variant="outline"
+                              className="w-24"
+                            >
+                              Applied{" "}
+                            </Button>
+                          </>
+                        )}
+                      </div>
+                      {isApplied &&
+                        (invalidCoupon ? (
+                          <span className="ml-2 text-red-600">
+                            Invalid Coupon or Coupon Expired!
+                          </span>
+                        ) : (
+                          <div className="flex ">
+                            <span className="ml-2 text-green-600">
+                              Coupon applied successfully!
+                            </span>
+                            <div className="flex items-center gap-2 ml-4">
+                              <Clock color="#ff6600" className="w-4 h-4" />
+                              <span className="font-mono">
+                                {formatTime(timeLeft)}
+                              </span>
+                            </div>
+                          </div>
+                        ))}
                     </div>
-                    {isApplied &&
-                      (invalidCoupon ? (
-                        <span className="ml-2 text-red-600">
-                          Invalid Coupon or Coupon Expired!
-                        </span>
-                      ) : (
-                        <span className="ml-2 text-green-600">
-                          Coupon applied successfully!
-                        </span>
-                      ))}
-                  </div>
 
-                  <div className="pt-4 px-6 text-center bg-gray-50 dark:bg-gray-900 lg:flex-shrink-0 lg:flex lg:flex-col lg:justify-center">
-                    {/* <p className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
-                      Limited Time Offer, First 500 readers only
-                    </p> */}
-                    {countryph === "ind" ? (
-                      <>
-                        {isApplied && (
-                          <div className="flex justify-center">
-                            <div className="">
-                              <span className="font-mono text-xl md:text-lg font-medium text-gray-400 dark:text-gray-400">
-                                ₹
-                              </span>
-                              <span className="h1 line-through text-gray-600 dark:text-gray-400">
-                                2499
-                              </span>
-                              <span className="text-red-600 text-sm ml-2">
-                                Special promotion
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-2 ml-4">
-                              <Clock color="#ff6600" className="w-4 h-4" />
-                              <span className="font-mono">
-                                {formatTime(timeLeft)}
-                              </span>
-                            </div>
+                    <div className="w-[96%] pt-4 px-6 text-center dark:bg-gray-900 lg:flex-shrink-0 lg:flex lg:flex-col lg:justify-center">
+                      <div className="py-4">
+                        <div className="mx-auto max-w-7xl px-0 sm:px-6 lg:px-8">
+                          <div className="space-y-8 lg:grid lg:grid-cols-2 sm:gap-6 xl:gap-8 lg:space-y-0 lg:items-center">
+                            {cards.map((card) => (
+                              <div
+                                key={card.id}
+                                onClick={() => setSelectedCard(card.id)}
+                                className={`
+              flex flex-col mx-auto max-w-sm text-gray-900 rounded-2xl 
+              transition-all duration-500 cursor-pointer
+              ${
+                selectedCard === card.id
+                  ? "bg-indigo-50 scale-105 border-2 border-primary"
+                  : "bg-gray-50 hover:bg-gray-100"
+              }
+            `}
+                              >
+                                {card.isPopular && (
+                                  <div className="uppercase bg-gradient-to-r from-primary to-secondary rounded-t-2xl p-3 text-center text-white">
+                                    MOST POPULAR
+                                  </div>
+                                )}
+
+                                <div className="p-2 xl:py-4 xl:px-6">
+                                  <div className="flex items-center mb-4">
+                                    <span
+                                      className={`
+                font-manrope mr-4 text-6xl font-semibold 
+                ${card.id === 1 ? "text-primary" : ""}
+              `}
+                                    >
+                                      {isApplied
+                                        ? countryph === "ind"
+                                          ? card.priceDiscountedINR
+                                          : card.priceDiscounted
+                                        : countryph === "ind"
+                                        ? card.priceINR
+                                        : card.price}
+                                    </span>
+                                    {isApplied && (
+                                      <span className="text-gray-500 line-through text-3xl">
+                                        {countryph === "ind"
+                                          ? card.priceINR
+                                          : card.price}
+                                      </span>
+                                    )}
+                                  </div>
+                                  <ul className="mb-4 space-y-2 text-left text-lg">
+                                    <li className="flex items-center space-x-4">
+                                      <svg
+                                        className="flex-shrink-0 w-6 h-6 text-green-400"
+                                        viewBox="0 0 30 30"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M10 14.7875L13.0959 17.8834C13.3399 18.1274 13.7353 18.1275 13.9794 17.8838L20.625 11.25M15 27.5C8.09644 27.5 2.5 21.9036 2.5 15C2.5 8.09644 8.09644 2.5 15 2.5C21.9036 2.5 27.5 8.09644 27.5 15C27.5 21.9036 21.9036 27.5 15 27.5Z"
+                                          stroke="currentColor"
+                                          strokeWidth="1.6"
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                        />
+                                      </svg>
+
+                                      <span>EBook</span>
+                                    </li>
+                                    {card.features.map((feature, index) => (
+                                      <li
+                                        key={index}
+                                        className="flex items-center space-x-4"
+                                      >
+                                        {card?.id == 1 ? (
+                                          <svg
+                                            className="flex-shrink-0 w-6 h-6 text-green-400"
+                                            viewBox="0 0 30 30"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                          >
+                                            <path
+                                              d="M10 14.7875L13.0959 17.8834C13.3399 18.1274 13.7353 18.1275 13.9794 17.8838L20.625 11.25M15 27.5C8.09644 27.5 2.5 21.9036 2.5 15C2.5 8.09644 8.09644 2.5 15 2.5C21.9036 2.5 27.5 8.09644 27.5 15C27.5 21.9036 21.9036 27.5 15 27.5Z"
+                                              stroke="currentColor"
+                                              strokeWidth="1.6"
+                                              strokeLinecap="round"
+                                              strokeLinejoin="round"
+                                            />
+                                          </svg>
+                                        ) : (
+                                          <svg
+                                            className="flex-shrink-0 w-6 h-6 text-red-500"
+                                            viewBox="0 0 30 30"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                          >
+                                            <path
+                                              d="M8.75 8.75L21.25 21.25M21.25 8.75L8.75 21.25"
+                                              stroke="currentColor"
+                                              strokeWidth="1.6"
+                                              strokeLinecap="round"
+                                              strokeLinejoin="round"
+                                            />
+                                            <circle
+                                              cx="15"
+                                              cy="15"
+                                              r="12.5"
+                                              stroke="currentColor"
+                                              strokeWidth="1.6"
+                                            />
+                                          </svg>
+                                        )}
+
+                                        <span>{feature}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+
+                                  <button
+                                    disabled={!isApplied}
+                                    onClick={handlePayment}
+                                    className={`
+                  py-2.5 px-5 shadow-sm rounded-full transition-all duration-500 
+                  text-base font-semibold text-center w-fit block mx-auto
+                  ${
+                    selectedCard === card.id
+                      ? "bg-primary text-white hover:bg-secondary"
+                      : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  }
+                `}
+                                  >
+                                    {selectedCard === card.id
+                                      ? "Purchase Plan"
+                                      : "Select Plan"}
+                                  </button>
+                                </div>
+                              </div>
+                            ))}
                           </div>
-                        )}
-
-                        <div className="mt-4 flex items-center justify-center text-5xl font-extrabold text-gray-900 dark:text-white">
-                          <span>₹{isApplied ? "499" : "2499"}</span>
-                          <span className="ml-3 text-xl font-medium text-gray-500 dark:text-gray-400">
-                            INR
-                          </span>
                         </div>
-                      </>
-                    ) : (
-                      <>
-                        {isApplied && (
-                          <div className="flex justify-center">
-                            <div className="">
-                              <span className="font-mono text-xl md:text-lg font-medium text-gray-400 dark:text-gray-400">
-                                $
-                              </span>
-                              <span className="h1 line-through text-gray-600 dark:text-gray-400">
-                                99
-                              </span>
-                              <span className="text-red-600 text-sm ml-2">
-                                Special promotion
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-2 ml-4">
-                              <Clock color="#ff6600" className="w-4 h-4" />
-                              <span className="font-mono">
-                                {formatTime(timeLeft)}
-                              </span>
-                            </div>
+                      </div>
+                      {/* {countryph === "ind" ? (
+                    <>
+                      {isApplied && (
+                        <div className="flex justify-center">
+                          <div className="">
+                            <span className="font-mono text-xl md:text-lg font-medium text-gray-400 dark:text-gray-400">
+                              ₹
+                            </span>
+                            <span className="h1 line-through text-gray-600 dark:text-gray-400">
+                              2499
+                            </span>
+                            <span className="text-red-600 text-sm ml-2">
+                              Special promotion
+                            </span>
                           </div>
-                        )}
-
-                        <div className="mt-4 flex items-center justify-center text-5xl font-extrabold text-gray-900 dark:text-white">
-                          <span>${isApplied ? "39.99" : "99"}</span>
-                          <span className="ml-3 text-xl font-medium text-gray-500 dark:text-gray-400">
-                            USD
-                          </span>
+                         
                         </div>
-                      </>
-                    )}
-                  </div>
+                      )}
 
-                  {isApplied ? (
-                    <Link
-                      href={
-                        countryph === "ind"
-                          ? "https://rzp.io/rzp/38770yOK"
-                          : "https://rzp.io/rzp/pVu7MXf"
-                      }
-                      className="mt-6 bg-primary hover:opacity-90 hover:bg-secondary text-white py-2 px-6 rounded-full shadow-none text-sm sm:text-base lg:text-lg"
-                    >
-                      PAY NOW
-                    </Link>
+                      <div className="mt-4 flex items-center justify-center text-5xl font-extrabold text-gray-900 dark:text-white">
+                        <span>₹{isApplied ? "499" : "2499"}</span>
+                        <span className="ml-3 text-xl font-medium text-gray-500 dark:text-gray-400">
+                          INR
+                        </span>
+                      </div>
+                    </>
                   ) : (
-                    <button
-                      disabled
-                      className="mt-6 bg-gray-400 text-white py-2 px-6 rounded-full text-sm sm:text-base lg:text-lg cursor-not-allowed"
-                    >
-                      PAY NOW
-                    </button>
-                  )}
+                    <>
+                      {isApplied && (
+                        <div className="flex justify-center">
+                          <div className="">
+                            <span className="font-mono text-xl md:text-lg font-medium text-gray-400 dark:text-gray-400">
+                              $
+                            </span>
+                            <span className="h1 line-through text-gray-600 dark:text-gray-400">
+                              99
+                            </span>
+                            <span className="text-red-600 text-sm ml-2">
+                              Special promotion
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2 ml-4">
+                            <Clock color="#ff6600" className="w-4 h-4" />
+                            <span className="font-mono">
+                              {formatTime(timeLeft)}
+                            </span>
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="mt-4 flex items-center justify-center text-5xl font-extrabold text-gray-900 dark:text-white">
+                        <span>${isApplied ? "39.99" : "99"}</span>
+                        <span className="ml-3 text-xl font-medium text-gray-500 dark:text-gray-400">
+                          USD
+                        </span>
+                      </div>
+                    </>
+                  )} */}
+                    </div>
+                  </div>
                 </div>
               )}
               <DialogFooter>
