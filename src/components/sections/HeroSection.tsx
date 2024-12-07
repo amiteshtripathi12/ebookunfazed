@@ -121,7 +121,7 @@ function HeroSection() {
 
   const {isDialogOpen, setIsDialogOpen} = dialogContext;
 
-  const [showType, setShowType] = useState("question");
+  const [showType, setShowType] = useState("form");
   const [userDetails, setUserDetails] = useState({
     id: "",
     firstName: "",
