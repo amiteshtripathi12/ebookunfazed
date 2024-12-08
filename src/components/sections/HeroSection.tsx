@@ -82,14 +82,15 @@ const cards = [
       "Journals",
       "Self Reflection worksheets",
       "Early bird offers to our upcoming webinars specially for clients",
-      "Journals",
     ],
+    prices: ["$35", "$499", "$149", "$39.99", "$49.99", "$49.99", "$49.99"],
+    pricesINR: ["₹1500", "₹5999", "₹1499", "₹999", "₹2499", "₹1999", "₹2499"],
   },
   {
     id: 1,
-    priceINR: "₹15694",
+    priceINR: "₹16994",
     priceDiscountedINR: "₹999",
-    price: "$862.96",
+    price: "$872.96",
     priceDiscounted: "$59.99",
     isPopular: true,
     features: [
@@ -100,8 +101,9 @@ const cards = [
       "Journals",
       "Self Reflection worksheets",
       "Early bird offers to our upcoming webinars specially for clients",
-      "Journals",
     ],
+    prices: ["$35", "$499", "$149", "$39.99", "$49.99", "$49.99", "$49.99"],
+    pricesINR: ["₹1500", "₹5999", "₹1499", "₹999", "₹2499", "₹1999", "₹2499"],
   },
 ];
 
@@ -121,7 +123,7 @@ function HeroSection() {
 
   const {isDialogOpen, setIsDialogOpen} = dialogContext;
 
-  const [showType, setShowType] = useState("form");
+  const [showType, setShowType] = useState("question");
   const [userDetails, setUserDetails] = useState({
     id: "",
     firstName: "",
@@ -234,9 +236,9 @@ function HeroSection() {
 
   const handlePayment = async () => {
     if (selectedCard == 1 && countryph === "ind") {
-      router.push("https://rzp.io/rzp/rqKi68A ");   //1998 test
+      router.push("https://rzp.io/rzp/rqKi68A "); //1998 test
     } else if (selectedCard == 0 && countryph === "ind") {
-      router.push("https://rzp.io/rzp/38770yOK");  //
+      router.push("https://rzp.io/rzp/38770yOK"); //
     } else if (selectedCard == 0 && countryph === "us") {
       router.push("https://rzp.io/rzp/pVu7MXf");
     } else if (selectedCard == 1 && countryph === "us") {
@@ -687,71 +689,69 @@ function HeroSection() {
                                     )}
                                   </div>
                                   <ul className="mb-4 space-y-2 text-left text-lg">
-                                    <li className="flex items-center space-x-4">
-                                      <svg
-                                        className="flex-shrink-0 w-6 h-6 text-green-400"
-                                        viewBox="0 0 30 30"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                      >
-                                        <path
-                                          d="M10 14.7875L13.0959 17.8834C13.3399 18.1274 13.7353 18.1275 13.9794 17.8838L20.625 11.25M15 27.5C8.09644 27.5 2.5 21.9036 2.5 15C2.5 8.09644 8.09644 2.5 15 2.5C21.9036 2.5 27.5 8.09644 27.5 15C27.5 21.9036 21.9036 27.5 15 27.5Z"
-                                          stroke="currentColor"
-                                          strokeWidth="1.6"
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                        />
-                                      </svg>
-
-                                      <span>EBook</span>
-                                    </li>
                                     {card.features.map((feature, index) => (
                                       <li
                                         key={index}
-                                        className="flex items-center space-x-4"
+                                        className="flex justify-between items-start space-x-4"
                                       >
-                                        {card?.id == 1 ? (
-                                          <svg
-                                            className="flex-shrink-0 w-6 h-6 text-green-400"
-                                            viewBox="0 0 30 30"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                          >
-                                            <path
-                                              d="M10 14.7875L13.0959 17.8834C13.3399 18.1274 13.7353 18.1275 13.9794 17.8838L20.625 11.25M15 27.5C8.09644 27.5 2.5 21.9036 2.5 15C2.5 8.09644 8.09644 2.5 15 2.5C21.9036 2.5 27.5 8.09644 27.5 15C27.5 21.9036 21.9036 27.5 15 27.5Z"
-                                              stroke="currentColor"
-                                              strokeWidth="1.6"
-                                              strokeLinecap="round"
-                                              strokeLinejoin="round"
-                                            />
-                                          </svg>
-                                        ) : (
-                                          <svg
-                                            className="flex-shrink-0 w-6 h-6 text-red-500"
-                                            viewBox="0 0 30 30"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                          >
-                                            <path
-                                              d="M8.75 8.75L21.25 21.25M21.25 8.75L8.75 21.25"
-                                              stroke="currentColor"
-                                              strokeWidth="1.6"
-                                              strokeLinecap="round"
-                                              strokeLinejoin="round"
-                                            />
-                                            <circle
-                                              cx="15"
-                                              cy="15"
-                                              r="12.5"
-                                              stroke="currentColor"
-                                              strokeWidth="1.6"
-                                            />
-                                          </svg>
-                                        )}
-
-                                        <span>{feature}</span>
+                                        <div className="flex items-center space-x-4">
+                                          {card?.id === 1 ? (
+                                            <svg
+                                              className="flex-shrink-0 w-6 h-6 text-green-400"
+                                              viewBox="0 0 30 30"
+                                              fill="none"
+                                              xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                              <path
+                                                d="M10 14.7875L13.0959 17.8834C13.3399 18.1274 13.7353 18.1275 13.9794 17.8838L20.625 11.25M15 27.5C8.09644 27.5 2.5 21.9036 2.5 15C2.5 8.09644 8.09644 2.5 15 2.5C21.9036 2.5 27.5 8.09644 27.5 15C27.5 21.9036 21.9036 27.5 15 27.5Z"
+                                                stroke="currentColor"
+                                                strokeWidth="1.6"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                              />
+                                            </svg>
+                                          ) : (
+                                            <svg
+                                              className="flex-shrink-0 w-6 h-6 text-red-500"
+                                              viewBox="0 0 30 30"
+                                              fill="none"
+                                              xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                              <path
+                                                d="M8.75 8.75L21.25 21.25M21.25 8.75L8.75 21.25"
+                                                stroke="currentColor"
+                                                strokeWidth="1.6"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                              />
+                                              <circle
+                                                cx="15"
+                                                cy="15"
+                                                r="12.5"
+                                                stroke="currentColor"
+                                                strokeWidth="1.6"
+                                              />
+                                            </svg>
+                                          )}
+                                          <span>{feature}</span>
+                                        </div>
+                                        <span className="text-gray-500 text-sm font-medium">
+                                          {countryph === "ind"
+                                            ? card.pricesINR[index]
+                                            : card.prices[index]}
+                                        </span>
                                       </li>
                                     ))}
+                                    <li className="flex justify-between items-start space-x-4 border-t pt-2 mt-2">
+                                      <span className="font-bold ml-12">
+                                        Total
+                                      </span>
+                                      <span className="text-gray-900 font-semibold text-lg">
+                                        {countryph === "ind"
+                                          ? card.priceINR
+                                          : card.price}
+                                      </span>
+                                    </li>
                                   </ul>
 
                                   <button
