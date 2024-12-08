@@ -71,8 +71,8 @@ const cards = [
   {
     id: 0,
     priceINR: "₹2499",
-    priceDiscountedINR: "₹499",
-    price: "$99",
+    priceDiscountedINR: "₹999",
+    price: "$99.98",
     priceDiscounted: "$39.99",
     features: [
       "1 Therapy Session(First 200 people)",
@@ -89,9 +89,9 @@ const cards = [
   {
     id: 1,
     priceINR: "₹16994",
-    priceDiscountedINR: "₹999",
+    priceDiscountedINR: "₹1998",
     price: "$872.96",
-    priceDiscounted: "$59.99",
+    priceDiscounted: "$99.98",
     isPopular: true,
     features: [
       "1 Therapy Session(First 200 people)",
