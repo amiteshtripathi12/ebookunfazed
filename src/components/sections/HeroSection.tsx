@@ -234,9 +234,9 @@ function HeroSection() {
 
   const handlePayment = async () => {
     if (selectedCard == 1 && countryph === "ind") {
-      router.push("https://rzp.io/rzp/OhKpx1R ");
+      router.push("https://rzp.io/rzp/rqKi68A ");   //1998 test
     } else if (selectedCard == 0 && countryph === "ind") {
-      router.push("https://rzp.io/rzp/38770yOK");
+      router.push("https://rzp.io/rzp/38770yOK");  //
     } else if (selectedCard == 0 && countryph === "us") {
       router.push("https://rzp.io/rzp/pVu7MXf");
     } else if (selectedCard == 1 && countryph === "us") {
