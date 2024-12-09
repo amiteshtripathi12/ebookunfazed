@@ -113,7 +113,7 @@ function HeroSection() {
   });
 
   const dialogContext = useContext(DialogContext);
-  const [selectedCard, setSelectedCard] = useState(1);
+  const [selectedCard, setSelectedCard] = useState(0);
 
   if (!dialogContext) {
     throw new Error(
@@ -123,7 +123,7 @@ function HeroSection() {
 
   const {isDialogOpen, setIsDialogOpen} = dialogContext;
 
-  const [showType, setShowType] = useState("form");
+  const [showType, setShowType] = useState("question");
   const [userDetails, setUserDetails] = useState({
     id: "",
     firstName: "",
@@ -229,6 +229,7 @@ function HeroSection() {
     );
     if (validCoupon) {
       setIsApplied(true);
+      setSelectedCard(1);
     } else {
       setInvalidCoupon(true);
     }
@@ -295,8 +296,6 @@ function HeroSection() {
 
       setUserDetails(response.data);
       setShowType("question");
-
-      console.log("Form submitted successfully:", response.data);
       setIsSubmiting(false);
     } catch (error) {
       toast({
@@ -593,7 +592,7 @@ function HeroSection() {
                 <div className=" max-h-[75vh] overflow-y-auto custom-scrollbar">
                   <div className="flex flex-col items-center justify-center rounded-lg  w-full mx-auto ">
                     <div className=" max-w-md mt-6">
-                      <span className="ml-2 mb-2">
+                      <span className="ml-2 text-3xl font-semibold  mb-6">
                         APPLY THE COUPON AND SEE THE MAGIC UNFOLD!!
                       </span>
                       <div className="flex gap-2 mb-2">
@@ -647,156 +646,166 @@ function HeroSection() {
                       <div className="py-4">
                         <div className="mx-auto max-w-7xl px-0 sm:px-6 lg:px-8">
                           <div className="space-y-8 lg:grid lg:grid-cols-2 sm:gap-6 xl:gap-8 lg:space-y-0 lg:items-center">
-                            {cards.map((card) => (
-                              <div
-                                key={card.id}
-                                onClick={() => setSelectedCard(card.id)}
-                                className={`
-              flex flex-col mx-auto max-w-sm text-gray-900 rounded-2xl 
-              transition-all duration-500 cursor-pointer
+                            {cards
+                              .filter((card) => !(card.id === 1 && !isApplied))
+                              .map((card) => (
+                                <div
+                                  key={card.id}
+                                  onClick={() => setSelectedCard(card.id)}
+                                  className={`
+                flex flex-col mx-auto max-w-sm text-gray-900 rounded-2xl 
+                transition-all duration-500 cursor-pointer
               ${
                 selectedCard === card.id
                   ? "bg-indigo-50 scale-105 border-2 border-primary"
                   : "bg-gray-50 hover:bg-gray-100"
               }
             `}
-                              >
-                                {card.isPopular && (
-                                  <div className="uppercase bg-gradient-to-r from-primary to-secondary rounded-t-2xl p-3 text-center text-white">
-                                    ONE TIME OFFER
-                                  </div>
-                                )}
+                                >
+                                  {card.isPopular && (
+                                    <div className="uppercase bg-gradient-to-r from-primary to-secondary rounded-t-2xl p-3 text-center text-white">
+                                      ONE TIME OFFER
+                                    </div>
+                                  )}
 
-                                <div className="p-2 xl:py-4 xl:px-6">
-                                  <div className="flex items-center mb-4">
-                                    <span
-                                      className={`
+                                  <div className="p-2 xl:py-4 xl:px-6">
+                                    <div className="flex items-center mb-4">
+                                      <span
+                                        className={`
                 font-manrope mr-4 text-6xl font-semibold 
                 ${card.id === 1 ? "text-primary" : ""}
               `}
-                                    >
-                                      {isApplied
-                                        ? countryph === "ind"
-                                          ? card.priceDiscountedINR
-                                          : card.priceDiscounted
-                                        : countryph === "ind"
-                                        ? card.priceINR
-                                        : card.price}
-                                    </span>
-                                    {isApplied && (
-                                      <span className="text-gray-500 line-through text-3xl">
-                                        {countryph === "ind"
+                                      >
+                                        {isApplied
+                                          ? countryph === "ind"
+                                            ? card.priceDiscountedINR
+                                            : card.priceDiscounted
+                                          : countryph === "ind"
                                           ? card.priceINR
                                           : card.price}
                                       </span>
-                                    )}
-                                  </div>
-                                  <ul className="mb-4 space-y-2 text-left text-lg">
-                                    <li className="flex justify-between items-start space-x-4 border-b pt-2 mt-2">
-                                      <span className="ml-10">Bonus</span>
-                                      <span className="text-gray-900 text-lg">
-                                        Worth
-                                      </span>
-                                    </li>
-                                    <li className="flex items-center space-x-4">
-                                      <svg
-                                        className="flex-shrink-0 w-6 h-6 text-green-400"
-                                        viewBox="0 0 30 30"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                      >
-                                        <path
-                                          d="M10 14.7875L13.0959 17.8834C13.3399 18.1274 13.7353 18.1275 13.9794 17.8838L20.625 11.25M15 27.5C8.09644 27.5 2.5 21.9036 2.5 15C2.5 8.09644 8.09644 2.5 15 2.5C21.9036 2.5 27.5 8.09644 27.5 15C27.5 21.9036 21.9036 27.5 15 27.5Z"
-                                          stroke="currentColor"
-                                          strokeWidth="1.6"
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                        />
-                                      </svg>
-                                      <span>EBook</span>
-                                    </li>
-                                    {card.features.map((feature, index) => (
-                                      <li
-                                        key={index}
-                                        className="flex justify-between items-start space-x-4"
-                                      >
+                                      {isApplied && (
+                                        <span className="text-gray-500 line-through text-3xl">
+                                          {countryph === "ind"
+                                            ? card.priceINR
+                                            : card.price}
+                                        </span>
+                                      )}
+                                    </div>
+                                    <ul className="mb-4 space-y-2 text-left text-lg">
+                                      <li className="flex justify-between items-start space-x-4 border-b pt-2 mt-2">
+                                        <span className="ml-10">Bonus</span>
+                                        <span className="text-gray-900 text-lg">
+                                          Worth
+                                        </span>
+                                      </li>
+                                      <li className="flex justify-between items-start space-x-4">
                                         <div className="flex items-center space-x-4">
-                                          {card?.id === 1 ? (
-                                            <svg
-                                              className="flex-shrink-0 w-6 h-6 text-green-400"
-                                              viewBox="0 0 30 30"
-                                              fill="none"
-                                              xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                              <path
-                                                d="M10 14.7875L13.0959 17.8834C13.3399 18.1274 13.7353 18.1275 13.9794 17.8838L20.625 11.25M15 27.5C8.09644 27.5 2.5 21.9036 2.5 15C2.5 8.09644 8.09644 2.5 15 2.5C21.9036 2.5 27.5 8.09644 27.5 15C27.5 21.9036 21.9036 27.5 15 27.5Z"
-                                                stroke="currentColor"
-                                                strokeWidth="1.6"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                              />
-                                            </svg>
-                                          ) : (
-                                            <svg
-                                              className="flex-shrink-0 w-6 h-6 text-red-500"
-                                              viewBox="0 0 30 30"
-                                              fill="none"
-                                              xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                              <path
-                                                d="M8.75 8.75L21.25 21.25M21.25 8.75L8.75 21.25"
-                                                stroke="currentColor"
-                                                strokeWidth="1.6"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                              />
-                                              <circle
-                                                cx="15"
-                                                cy="15"
-                                                r="12.5"
-                                                stroke="currentColor"
-                                                strokeWidth="1.6"
-                                              />
-                                            </svg>
-                                          )}
-                                          <span>{feature}</span>
+                                          <svg
+                                            className="flex-shrink-0 w-6 h-6 text-green-400"
+                                            viewBox="0 0 30 30"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                          >
+                                            <path
+                                              d="M10 14.7875L13.0959 17.8834C13.3399 18.1274 13.7353 18.1275 13.9794 17.8838L20.625 11.25M15 27.5C8.09644 27.5 2.5 21.9036 2.5 15C2.5 8.09644 8.09644 2.5 15 2.5C21.9036 2.5 27.5 8.09644 27.5 15C27.5 21.9036 21.9036 27.5 15 27.5Z"
+                                              stroke="currentColor"
+                                              strokeWidth="1.6"
+                                              strokeLinecap="round"
+                                              strokeLinejoin="round"
+                                            />
+                                          </svg>
+                                          <span>EBook</span>
                                         </div>
                                         <span className="text-gray-500 text-sm font-medium">
                                           {countryph === "ind"
-                                            ? card.pricesINR[index]
-                                            : card.prices[index]}
+                                            ? "₹999"
+                                            : "$39.99"}
                                         </span>
                                       </li>
-                                    ))}
 
-                                    <li className="flex justify-between items-start space-x-4 border-t pt-2 mt-2">
-                                      <span className="font-bold ml-12">
-                                        Total
-                                      </span>
-                                      <span className="text-gray-900 font-semibold text-lg">
-                                        {countryph === "ind"
-                                          ? card.priceINR
-                                          : card.price}
-                                      </span>
-                                    </li>
-                                    {isApplied && (
+                                      {card.features.map((feature, index) => (
+                                        <li
+                                          key={index}
+                                          className="flex justify-between items-start space-x-4"
+                                        >
+                                          <div className="flex items-center space-x-4">
+                                            {card?.id === 1 ? (
+                                              <svg
+                                                className="flex-shrink-0 w-6 h-6 text-green-400"
+                                                viewBox="0 0 30 30"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                              >
+                                                <path
+                                                  d="M10 14.7875L13.0959 17.8834C13.3399 18.1274 13.7353 18.1275 13.9794 17.8838L20.625 11.25M15 27.5C8.09644 27.5 2.5 21.9036 2.5 15C2.5 8.09644 8.09644 2.5 15 2.5C21.9036 2.5 27.5 8.09644 27.5 15C27.5 21.9036 21.9036 27.5 15 27.5Z"
+                                                  stroke="currentColor"
+                                                  strokeWidth="1.6"
+                                                  strokeLinecap="round"
+                                                  strokeLinejoin="round"
+                                                />
+                                              </svg>
+                                            ) : (
+                                              <svg
+                                                className="flex-shrink-0 w-6 h-6 text-red-500"
+                                                viewBox="0 0 30 30"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                              >
+                                                <path
+                                                  d="M8.75 8.75L21.25 21.25M21.25 8.75L8.75 21.25"
+                                                  stroke="currentColor"
+                                                  strokeWidth="1.6"
+                                                  strokeLinecap="round"
+                                                  strokeLinejoin="round"
+                                                />
+                                                <circle
+                                                  cx="15"
+                                                  cy="15"
+                                                  r="12.5"
+                                                  stroke="currentColor"
+                                                  strokeWidth="1.6"
+                                                />
+                                              </svg>
+                                            )}
+                                            <span>{feature}</span>
+                                          </div>
+                                          <span className="text-gray-500 text-sm font-medium">
+                                            {countryph === "ind"
+                                              ? card.pricesINR[index]
+                                              : card.prices[index]}
+                                          </span>
+                                        </li>
+                                      ))}
+
                                       <li className="flex justify-between items-start space-x-4 border-t pt-2 mt-2">
                                         <span className="font-bold ml-12">
-                                          At just
+                                          Total
                                         </span>
                                         <span className="text-gray-900 font-semibold text-lg">
                                           {countryph === "ind"
-                                            ? card.priceDiscountedINR
-                                            : card.priceDiscounted}
+                                            ? card.priceINR
+                                            : card.price}
                                         </span>
                                       </li>
-                                    )}
-                                  </ul>
+                                      {isApplied && (
+                                        <li className="flex justify-between items-start space-x-4 border-t pt-2 mt-2">
+                                          <span className="font-bold ml-12">
+                                            At just
+                                          </span>
+                                          <span className="text-gray-900 font-semibold text-lg">
+                                            {countryph === "ind"
+                                              ? card.priceDiscountedINR
+                                              : card.priceDiscounted}
+                                          </span>
+                                        </li>
+                                      )}
+                                    </ul>
 
-                                  <button
-                                    disabled={!isApplied}
-                                    onClick={handlePayment}
-                                    className={`
+                                    <button
+                                      disabled={!isApplied}
+                                      onClick={handlePayment}
+                                      className={`
                   py-2.5 px-5 shadow-sm rounded-full transition-all duration-500 
                   text-base font-semibold text-center w-fit block mx-auto
                   ${
@@ -805,14 +814,14 @@ function HeroSection() {
                       : "bg-gray-300 text-gray-500 cursor-not-allowed"
                   }
                 `}
-                                  >
-                                    {selectedCard === card.id
-                                      ? "Purchase Plan"
-                                      : "Select Plan"}
-                                  </button>
+                                    >
+                                      {selectedCard === card.id
+                                        ? "Purchase Plan"
+                                        : "Select Plan"}
+                                    </button>
+                                  </div>
                                 </div>
-                              </div>
-                            ))}
+                              ))}
                           </div>
                         </div>
                       </div>
