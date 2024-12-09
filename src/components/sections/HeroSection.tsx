@@ -123,7 +123,7 @@ function HeroSection() {
 
   const {isDialogOpen, setIsDialogOpen} = dialogContext;
 
-  const [showType, setShowType] = useState("question");
+  const [showType, setShowType] = useState("form");
   const [userDetails, setUserDetails] = useState({
     id: "",
     firstName: "",
@@ -591,37 +591,39 @@ function HeroSection() {
               ) : (
                 <div className=" max-h-[75vh] overflow-y-auto custom-scrollbar">
                   <div className="flex flex-col items-center justify-center rounded-lg  w-full mx-auto ">
-                    <div className=" max-w-md mt-6">
-                      <span className="ml-2 text-3xl font-semibold  mb-6">
+                    <div className="mt-6">
+                      <span className="ml-2 text-2xl font-semibold">
                         APPLY THE COUPON AND SEE THE MAGIC UNFOLD!!
                       </span>
-                      <div className="flex gap-2 mb-2">
-                        <Input
-                          placeholder="Enter coupon code"
-                          value={couponInput}
-                          onChange={(e) => setCouponInput(e.target.value)}
-                        />
-                        {!isApplied ? (
-                          <Button
-                            onClick={handleApplyCoupon}
-                            disabled={couponInput?.length < 0}
-                            variant="outline"
-                            className="w-24"
-                          >
-                            Apply
-                          </Button>
-                        ) : (
-                          <>
+                      <div className="flex justify-around w-full items-center mt-6 mb-2">
+                        <div className="flex justify-around gap-2 mb-2">
+                          <Input
+                            placeholder="Enter coupon code"
+                            value={couponInput}
+                            onChange={(e) => setCouponInput(e.target.value)}
+                            className="max-w-56"
+                          />
+                          {!isApplied ? (
                             <Button
-                              disabled={couponInput?.length < 0}
+                              onClick={handleApplyCoupon}
+                              disabled={couponInput?.length === 0}
                               variant="outline"
                               className="w-24"
                             >
-                              Applied{" "}
+                              Apply
                             </Button>
-                          </>
-                        )}
+                          ) : (
+                            <Button
+                              disabled={true}
+                              variant="outline"
+                              className="w-24"
+                            >
+                              Applied
+                            </Button>
+                          )}
+                        </div>
                       </div>
+
                       {isApplied &&
                         (invalidCoupon ? (
                           <span className="ml-2 text-red-600">
@@ -645,22 +647,26 @@ function HeroSection() {
                     <div className="w-[96%] pt-4 px-6 text-center dark:bg-gray-900 lg:flex-shrink-0 lg:flex lg:flex-col lg:justify-center">
                       <div className="py-4">
                         <div className="mx-auto max-w-7xl px-0 sm:px-6 lg:px-8">
-                          <div className="space-y-8 lg:grid lg:grid-cols-2 sm:gap-6 xl:gap-8 lg:space-y-0 lg:items-center">
+                          <div
+                            className={`${
+                              !isApplied
+                                ? "flex justify-center items-center"
+                                : "space-y-8 lg:grid lg:grid-cols-2 sm:gap-6 xl:gap-8 lg:space-y-0 lg:items-center"
+                            }`}
+                          >
                             {cards
                               .filter((card) => !(card.id === 1 && !isApplied))
                               .map((card) => (
                                 <div
                                   key={card.id}
                                   onClick={() => setSelectedCard(card.id)}
-                                  className={`
-                flex flex-col mx-auto max-w-sm text-gray-900 rounded-2xl 
+                                  className={`flex flex-col mx-auto max-w-sm text-gray-900 rounded-2xl 
                 transition-all duration-500 cursor-pointer
               ${
                 selectedCard === card.id
                   ? "bg-indigo-50 scale-105 border-2 border-primary"
                   : "bg-gray-50 hover:bg-gray-100"
-              }
-            `}
+              }`}
                                 >
                                   {card.isPopular && (
                                     <div className="uppercase bg-gradient-to-r from-primary to-secondary rounded-t-2xl p-3 text-center text-white">
