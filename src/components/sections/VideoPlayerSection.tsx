@@ -157,7 +157,7 @@ function VideoPlayerSection() {
   };
 
   return (
-    <section className="mt-[10rem]">
+    <section className="mt-[6rem]">
       <Header subtitle="About The EBook" />
       <div className="flex flex-col md:flex-row justify-between items-center gap-8 mt-[4rem]">
         <div>
