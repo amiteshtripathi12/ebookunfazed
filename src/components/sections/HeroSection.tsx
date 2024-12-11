@@ -243,7 +243,7 @@ function HeroSection() {
     } else if (selectedCard == 0 && countryph === "us") {
       router.push("https://rzp.io/rzp/pVu7MXf");
     } else if (selectedCard == 1 && countryph === "us") {
-      router.push("https://rzp.io/rzp/dI5eQFQf");
+      router.push("https://rzp.io/rzp/r3Aqsoq");
     }
   };
 
