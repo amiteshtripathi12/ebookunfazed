@@ -49,7 +49,7 @@ function RegisterSuccess() {
 
           <p className="text-gray-600 text-center mb-5">
             Your purchase was successful. You will receive an email with further
-            details. Thanks!
+            details (if not received then check in your promotional or spam mails). Thanks!
           </p>
 
           <div className="bg-gray-50 border border-gray-300 p-4 rounded-md shadow-sm">

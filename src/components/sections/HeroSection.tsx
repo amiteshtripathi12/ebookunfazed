@@ -728,8 +728,8 @@ function HeroSection() {
                                           </div>
                                           <span className="text-gray-500 text-sm font-medium">
                                             {countryph === "ind"
-                                              ? "₹999"
-                                              : "$39.99"}
+                                              ? card.priceINR
+                                              : card.price}
                                           </span>
                                         </li>
 
