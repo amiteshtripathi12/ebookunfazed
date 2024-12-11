@@ -993,12 +993,12 @@ function HeroSection() {
 
         <div className="flex flex-col md:flex-row justify-center gap-6 mt-8">
           <div className="flex-1 text-center">
-            <h3 className="font-[600] mb-4 text-3xl">What You’ll Get:</h3>
+            <h3 className="font-[600] mb-4 text-3xl">What You’ll Unlock with the Ebook:</h3>
             
             <ul className="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-2xl text-center">
               {[
                 "5 Audiobooks",
-                "4 Journals",
+                "5 Journals",
                 "Self Reflection Worksheets",
                 "Access to our exclusive Art Therapy Workshop",
                 "Free Access to our Private Community!!",
@@ -1027,11 +1027,16 @@ function HeroSection() {
                         fill="none"
                       />
                     </svg>
-                    <span>{item}</span>
+                    <span
+                      className={item === "FREE THERAPY SESSION !!!" ? "text-red-600 font-bold" : ""}
+                    >
+                      {item}
+                    </span>
                   </div>
                 </li>
               ))}
             </ul>
+
 
             {/* <ul className="list-disc text-left mx-auto mt-4 max-w-sm space-y-2">
              
