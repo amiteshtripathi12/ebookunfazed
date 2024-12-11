@@ -977,10 +977,25 @@ function HeroSection() {
           words="Transform your life with a complete bonus package worth a lifetime of value!"
         />
 
+      {/* <TextGenerateEffect
+        className="text-center text-black mt-4 text-[1.375rem] font-[500]"
+        words={
+          <>
+            Transform your life with a complete{" "}
+            <span className="text-red-500 font-bold">bonus package</span> worth a lifetime of value!
+          </>
+        }
+      /> */}
+
+
+
+
+
         <div className="flex flex-col md:flex-row justify-center gap-6 mt-8">
           <div className="flex-1 text-center">
-            <h3 className="font-[600] mb-4 text-xl">What You’ll Get:</h3>
-            <ul className="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-lg text-center">
+            <h3 className="font-[600] mb-4 text-3xl">What You’ll Get:</h3>
+            
+            <ul className="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-2xl text-center">
               {[
                 "5 Audiobooks",
                 "4 Journals",
@@ -1023,13 +1038,14 @@ function HeroSection() {
             </ul> */}
           </div>
         </div>
-        <p className="text-center mt-6 text-lg font-[500]">
+        <p className="text-center mt-6 text-3xl font-[500]">
           "Transform your life for less than the price of a weekend meal out!"
         </p>
-        <p className="text-center text-red-600 font-[700] mt-4">
+        <p className="text-center text-red-600 font-[700] mt-4 text-4xl">
           UNLOCK A FREE THERAPY SESSION ALONG WITH THE EBOOK!! ONLY FOR 200
           PEOPLE!! 22 SPOTS LEFT ONLY!!
         </p>
+
         <div className="flex justify-center mt-6">
           <Button
             onClick={() => setIsDialogOpen(true)}
