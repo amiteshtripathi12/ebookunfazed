@@ -237,13 +237,13 @@ function HeroSection() {
 
   const handlePayment = async () => {
     if (selectedCard == 1 && countryph === "ind") {
-      router.push("https://rzp.io/rzp/rqKi68A"); //1998 test
+      router.push("https://rzp.io/rzp/OhKpx1R");
     } else if (selectedCard == 0 && countryph === "ind") {
       router.push("https://rzp.io/rzp/38770yOK"); //
     } else if (selectedCard == 0 && countryph === "us") {
       router.push("https://rzp.io/rzp/pVu7MXf");
     } else if (selectedCard == 1 && countryph === "us") {
-      router.push("https://rzp.io/rzp/r3Aqsoq");
+      router.push("https://rzp.io/rzp/dI5eQFQf");
     }
   };
 
@@ -970,32 +970,20 @@ function HeroSection() {
       </section>
 
       {/* Offer Section */}
-      <section className="bg-lightGray py-12 px-6 md:px-12">
+      <section className="bg-lightGray py-12 px-6 md:px-2">
         <TextGenerateEffect
           className="text-center text-black mt-4 text-[1.375rem] font-[500]"
           // duration={0.0001}
           words="Transform your life with a complete bonus package worth a lifetime of value!"
         />
 
-      {/* <TextGenerateEffect
-        className="text-center text-black mt-4 text-[1.375rem] font-[500]"
-        words={
-          <>
-            Transform your life with a complete{" "}
-            <span className="text-red-500 font-bold">bonus package</span> worth a lifetime of value!
-          </>
-        }
-      /> */}
-
-
-
-
-
         <div className="flex flex-col md:flex-row justify-center gap-6 mt-8">
           <div className="flex-1 text-center">
-            <h3 className="font-[600] mb-4 text-3xl">What You’ll Unlock with the Ebook:</h3>
-            
-            <ul className="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-2xl text-center">
+            <h3 className="font-[600] mb-4 text-3xl">
+              What You’ll Unlock with the Ebook:
+            </h3>
+
+            <ul className="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-xl text-center">
               {[
                 "5 Audiobooks",
                 "5 Journals",
@@ -1007,7 +995,7 @@ function HeroSection() {
               ].map((item, index) => (
                 <li
                   key={index}
-                  className={`flex items-center justify-center ${
+                  className={`flex items-center justify-start ${
                     index % 2 === 0 ? "md:justify-start" : "md:justify-start"
                   }`}
                 >
@@ -1028,7 +1016,11 @@ function HeroSection() {
                       />
                     </svg>
                     <span
-                      className={item === "FREE THERAPY SESSION !!!" ? "text-red-600 font-bold" : ""}
+                      className={
+                        item === "FREE THERAPY SESSION !!!"
+                          ? "text-red-600 font-bold"
+                          : ""
+                      }
                     >
                       {item}
                     </span>
@@ -1036,7 +1028,6 @@ function HeroSection() {
                 </li>
               ))}
             </ul>
-
 
             {/* <ul className="list-disc text-left mx-auto mt-4 max-w-sm space-y-2">
              
