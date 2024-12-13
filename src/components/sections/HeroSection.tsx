@@ -69,11 +69,12 @@ const FormSchema = z.object({
 
 const cards = [
   {
-    id: 0,
-    priceINR: "₹2499",
-    priceDiscountedINR: "₹999",
-    price: "$99.98",
-    priceDiscounted: "$39.99",
+    id: 1,
+    priceINR: "₹16994",
+    priceDiscountedINR: "₹1998",
+    price: "$872.96",
+    priceDiscounted: "$99.98",
+    isPopular: true,
     features: [
       "1 Therapy Session(First 200 people)",
       "5 Different audiobooks",
@@ -87,12 +88,11 @@ const cards = [
     pricesINR: ["₹1500", "₹5999", "₹1499", "₹999", "₹2499", "₹1999", "₹2499"],
   },
   {
-    id: 1,
-    priceINR: "₹16994",
-    priceDiscountedINR: "₹1998",
-    price: "$872.96",
-    priceDiscounted: "$99.98",
-    isPopular: true,
+    id: 0,
+    priceINR: "₹2499",
+    priceDiscountedINR: "₹999",
+    price: "$99.98",
+    priceDiscounted: "$39.99",
     features: [
       "1 Therapy Session(First 200 people)",
       "5 Different audiobooks",
@@ -123,7 +123,7 @@ function HeroSection() {
 
   const {isDialogOpen, setIsDialogOpen} = dialogContext;
 
-  const [showType, setShowType] = useState("form");
+  const [showType, setShowType] = useState("question");
   const [userDetails, setUserDetails] = useState({
     id: "",
     firstName: "",
@@ -631,8 +631,8 @@ function HeroSection() {
                               Invalid Coupon or Coupon Expired!
                             </span>
                           ) : (
-                            <div className="flex ">
-                              <span className="ml-2 text-green-600">
+                            <div className="flex items-center justify-center">
+                              <span className=" text-green-600">
                                 Coupon applied successfully!
                               </span>
                               <div className="flex items-center gap-2 ml-4">
